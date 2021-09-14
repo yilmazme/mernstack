@@ -1,0 +1,39 @@
+GET http://localhost:4000/api/users HTTP/1.1
+//Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDA0Njg4MjZjMTk5NjhmZjE4MDM4OSIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2MDk5OTAsImV4cCI6MTYzMTYxMDAyMH0.r1TGiEFZvE3A7PHY2krz11aFEaJy_qH5uJVjM2B62AM
+
+
+
+### LOGIN
+POST http://localhost:4000/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"mehmet",
+    "username":"mehmet12",
+    "password":"ba6ikha-"
+}
+### ADD USER
+POST http://localhost:4000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+   "name":"murat",
+    "username":"murat12",
+    "password":"ba6ikha-"
+}
+
+### DELETE USER
+
+DELETE http://localhost:4000/api/delete/613e98fa34995be67d4e1013 HTTP/1.1
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDA0Njg4MjZjMTk5NjhmZjE4MDM4OSIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2MDk5MTYsImV4cCI6MTYzMTYwOTk0Nn0.NjDmaH4cXKN47b_-3PxfJ9ME7eXaAJZavi8HSoJnySE
+### REFERESH TOKEN
+
+POST http://localhost:4000/api/login/refresh HTTP/1.1
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxM2U5OGUxMzQ5OTViZTY3ZDRlMTAxMCIsImlzYWRtaW4iOnRydWUsImlhdCI6MTYzMTY0NDgzOX0.jw4iek30CjmZDMsPePjsqZd8n43S9UXA75wAQ2yE7WU"
+}
+### log out
+POST http://localhost:4000/api/logout HTTP/1.1
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDA0Njg4MjZjMTk5NjhmZjE4MDM4OSIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2MDg0ODAsImV4cCI6MTYzMTYwODUxMH0.hpIyNhcXBs64YFEiwUcsCptX7kXB3w6ILmMI3rr1FiE
