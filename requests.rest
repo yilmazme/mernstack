@@ -1,5 +1,5 @@
 GET http://localhost:4000/api/users HTTP/1.1
-//Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDA0Njg4MjZjMTk5NjhmZjE4MDM4OSIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2MDk5OTAsImV4cCI6MTYzMTYxMDAyMH0.r1TGiEFZvE3A7PHY2krz11aFEaJy_qH5uJVjM2B62AM
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4YzE4N2RkNWI5Y2FmM2YzNDlhMyIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2ODU5MDMsImV4cCI6MTYzMTY4NTkzM30.SqQaBB7jKhwRD9d5uEmBhVZ-Np-QR1L07W6E1l-fEXo
 
 
 
@@ -8,8 +8,8 @@ POST http://localhost:4000/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"mehmet",
-    "username":"mehmet12",
+    "name":"zeynep",
+    "username":"zeynep12",
     "password":"ba6ikha-"
 }
 ### ADD USER
@@ -17,15 +17,15 @@ POST http://localhost:4000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-   "name":"murat",
-    "username":"murat12",
+   "name":"yahya",
+    "username":"yahya12",
     "password":"ba6ikha-"
 }
 
 ### DELETE USER
 
-DELETE http://localhost:4000/api/delete/613e98fa34995be67d4e1013 HTTP/1.1
-Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDA0Njg4MjZjMTk5NjhmZjE4MDM4OSIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2MDk5MTYsImV4cCI6MTYzMTYwOTk0Nn0.NjDmaH4cXKN47b_-3PxfJ9ME7eXaAJZavi8HSoJnySE
+DELETE http://localhost:4000/api/delete/6140b2ab268f2c7f4f56ad7c HTTP/1.1
+Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDE4YzE4N2RkNWI5Y2FmM2YzNDlhMyIsImlzYWRtaW4iOmZhbHNlLCJpYXQiOjE2MzE2ODU5MDMsImV4cCI6MTYzMTY4NTkzM30.SqQaBB7jKhwRD9d5uEmBhVZ-Np-QR1L07W6E1l-fEXo
 ### REFERESH TOKEN
 
 POST http://localhost:4000/api/login/refresh HTTP/1.1

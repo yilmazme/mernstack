@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export default function Navbar() {
   return (
@@ -11,12 +12,8 @@ export default function Navbar() {
         backgroundColor: "#9ff",
       }}
     >
-      <NavLink activeStyle={{ color: "rgb(187, 98, 223)" }} to="/" exact>
+      <NavLink activeStyle={{ color: "rgb(187, 98, 223)" }} to="/home">
         Home
-      </NavLink>
-
-      <NavLink activeStyle={{ color: "rgb(187, 98, 223)" }} to="/users">
-        Users
       </NavLink>
     </div>
   );

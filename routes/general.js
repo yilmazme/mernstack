@@ -35,7 +35,9 @@ const verify = (req, res, next) => {
 general.get("/api/users", verify, (req, res) => {
   UserSchema.find()
     .then((data) => res.json(data))
-    .catch((err) => res.status(204).json(err));
+    .catch((err) => {
+      throw new Error(err.message);
+    });
 });
 
 //register
@@ -77,10 +79,10 @@ general.delete("/api/delete/:id", verify, (req, res) => {
   if (req.user.id === id || req.user.isadmin) {
     UserSchema.findOneAndDelete({ _id: id }).exec((err, doc) => {
       if (err) return res.status(400).json({ success: false, err });
-      res.status(200).json({ success: true, doc });
+      res.status(200).send("user deleted");
     });
   } else {
-    res.status(403).json("you are not allowed");
+    res.status(403).send("you are not allowed");
   }
 });
 

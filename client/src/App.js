@@ -1,66 +1,45 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useCallback } from "react";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./components/Login";
 
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [logged, setLogged] = useState(null);
 
-  let axiosInst = axios.create();
-  useEffect(() => {}, []);
-
-  const handleToken = (accessToken, refreshToken) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-    window.location.href = "/users";
+  const setLogin = () => {
+    setLogged(true);
+    console.log(logged);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("/login", {
-        username: user.username,
-        password: user.password,
-      })
-      .then((response) => {
-        handleToken(response.data.accessToken, response.data.refreshToken);
-      })
-      .catch((error) => console.log(error));
+  const setLogout = () => {
+    setLogged(false);
+    console.log(logged);
   };
-
+  console.log(logged);
   return (
     <div className="App">
       <Router>
-        <Navbar />
         <Switch>
-          <Route path="/" exact>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="username">Username:</label>
-              <input
-                type="text"
-                name="username"
-                value={user.username}
-                onChange={(e) => setUser({ ...user, username: e.target.value })}
-              />
-              <label htmlFor="password">Password:</label>
-              <input
-                type="text"
-                name="password"
-                value={user.password}
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
-              />
-              <input type="submit" value="login" />
-            </form>
+          <Route exact path="/">
+            <Redirect to="/welcome" />
           </Route>
-          <Route path="/users" exact>
-            <Home />
+          <Route path="/welcome">
+            <Login isLogged={logged} login={setLogin} />
+          </Route>
+          <Route path="/home">
+            <Home isLogged={logged} logout={setLogout} />
           </Route>
           <Route path="*">No such path</Route>
         </Switch>
       </Router>
+      <div> {logged}</div>
     </div>
   );
 }

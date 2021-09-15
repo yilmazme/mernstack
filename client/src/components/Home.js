@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-function Home() {
+function Home({ logout, isLogged }) {
   const [users, setUsers] = useState({ loading: true, all: [] });
 
   useEffect(() => {
@@ -54,21 +55,6 @@ function Home() {
     }
   }
 
-  // setInterval(async () => {
-  //   let token = localStorage.getItem("accessToken");
-  //   if (token) {
-  //     let dateNow = new Date();
-  //     let decodeToken = await jwtDecode(token);
-  //     if (decodeToken.exp * 1000 < dateNow.getTime()) {
-  //       refreshToken();
-  //     } else {
-  //       console.log("no need");
-  //     }
-  //   } else {
-  //     console.log("no token found");
-  //   }
-  // }, 10000);
-
   axiosInst.interceptors.request.use(
     async (config) => {
       let oldToken = localStorage.getItem("accessToken");
@@ -95,17 +81,20 @@ function Home() {
       },
     })
       .then((res) => {
+        logout();
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         console.log(res);
+
         window.location.href = "/";
       })
       .catch((err) => console.log("here we go:" + err));
   };
 
-  console.log("users rendered");
+  console.log("home rendered and loggin: " + isLogged);
   return (
     <div className="home">
+      <Navbar />
       Merhaba {loggedUser && loggedUser.username}
       {users.loading && <h3>LOADING...</h3>}
       {users.all.map((user) => {
@@ -126,7 +115,13 @@ function Home() {
           </div>
         );
       })}
-      <button onClick={() => handleLogout()}>LOGOUT</button>
+      <button
+        onClick={() => {
+          handleLogout();
+        }}
+      >
+        LOGOUT
+      </button>
     </div>
   );
 }
