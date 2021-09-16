@@ -26,7 +26,7 @@ function Home() {
     return user.token === localStorage.getItem("refreshToken");
   })[0];
 
-  const handledelete = async (id) => {
+  const handleDelete = async (id) => {
     await axiosInst
       .delete(`/delete/${id}`, {
         headers: {
@@ -42,7 +42,7 @@ function Home() {
       })
       .catch((err) => console.log(err));
   };
-  // refresh stuf
+  // refresh stuff
   async function refreshToken() {
     try {
       let reftoken = localStorage.getItem("refreshToken");
@@ -88,6 +88,7 @@ function Home() {
       .then((res) => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        localStorage.removeItem("logged");
         console.log(res);
 
         window.location.href = "/";
@@ -125,7 +126,7 @@ function Home() {
             }}
           >
             <p>{user.name}</p>
-            <button onClick={() => handledelete(user._id)}>x</button>
+            <button onClick={() => handleDelete(user._id)}>x</button>
           </div>
         );
       })}

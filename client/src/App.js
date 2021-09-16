@@ -14,7 +14,7 @@ import axios from "axios";
 import styles from "./app.module.css";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("logged")));
   const [user, setUser] = useState({ username: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -34,9 +34,12 @@ function App() {
       })
       .then((response) => {
         handleToken(response.data.accessToken, response.data.refreshToken);
-        setIsLoggedIn(true);
-
-        window.location.href = "/home";
+        localStorage.setItem("logged", JSON.stringify(true));
+        //setIsLoggedIn(JSON.parse(localStorage.getItem("logged")));
+        setTimeout(()=>{
+          window.location.href = "/home";
+        },300)
+       
       })
       .catch((error) => {
         console.log(error.response.data);

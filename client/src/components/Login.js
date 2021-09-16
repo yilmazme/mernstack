@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import styles from "../styles/login.module.css";
 
 function Login({ handleSubmit, user, setUser, errorMessage }) {
@@ -28,4 +27,4 @@ function Login({ handleSubmit, user, setUser, errorMessage }) {
   );
 }
 
-export default Login;
+export default React.memo(Login);
