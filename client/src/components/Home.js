@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import Spinner from "react-bootstrap/Spinner";
 
-function Home({ logout, isLogged }) {
+function Home() {
   const [users, setUsers] = useState({ loading: true, all: [] });
 
   useEffect(() => {
@@ -13,7 +14,11 @@ function Home({ logout, isLogged }) {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       })
-      .then((res) => setUsers({ loading: false, all: res.data }))
+      .then((res) =>
+        setTimeout(() => {
+          setUsers({ loading: false, all: res.data });
+        }, 1000)
+      )
       .catch((res) => console.log(res));
   }, []);
   let axiosInst = axios.create();
@@ -81,7 +86,6 @@ function Home({ logout, isLogged }) {
       },
     })
       .then((res) => {
-        logout();
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         console.log(res);
@@ -91,12 +95,22 @@ function Home({ logout, isLogged }) {
       .catch((err) => console.log("here we go:" + err));
   };
 
-  console.log("home rendered and loggin: " + isLogged);
+  console.log("home rendered");
   return (
     <div className="home">
       <Navbar />
       Merhaba {loggedUser && loggedUser.username}
-      {users.loading && <h3>LOADING...</h3>}
+      {users.loading && (
+        <>
+          <Spinner animation="grow" variant="primary" />
+          <Spinner animation="grow" variant="secondary" />
+          <Spinner animation="grow" variant="success" />
+          <Spinner animation="grow" variant="danger" />
+          <Spinner animation="grow" variant="warning" />
+          <Spinner animation="grow" variant="info" />
+          <Spinner animation="grow" variant="dark" />
+        </>
+      )}
       {users.all.map((user) => {
         return (
           <div
@@ -115,13 +129,7 @@ function Home({ logout, isLogged }) {
           </div>
         );
       })}
-      <button
-        onClick={() => {
-          handleLogout();
-        }}
-      >
-        LOGOUT
-      </button>
+      <button onClick={handleLogout}>LOGOUT</button>
     </div>
   );
 }

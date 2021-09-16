@@ -1,0 +1,53 @@
+.loginMain {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  position: relative;
+  bottom: 10rem;
+  width: 24rem;
+  height: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 4px;
+  background-image: url("../themes/lock.jpg");
+  background-size: cover;
+  color: rgb(66, 58, 63);
+  box-shadow: 3px 3px 3px black;
+}
+
+.form input {
+  width: 72%;
+  border-radius: 2%;
+  padding: 0 0.5rem;
+  background-color: rgb(255, 249, 241);
+  border: none;
+}
+
+.form label {
+  font-weight: 600;
+}
+
+.loginMain button {
+  background-color: rgb(19, 206, 143);
+  border: 1px solid transparent;
+  font: 1em sans-serif;
+  border-radius: 9%;
+  color: rgb(19, 17, 16);
+  padding: 3px 7px;
+}
+.loginMain button:active {
+  background-color: rgb(71, 243, 186);
+}
+.loginMain button:hover {
+  border: 1px solid black;
+}
+.loginMain p {
+  position: absolute;
+  color: red;
+}

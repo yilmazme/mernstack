@@ -1,39 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
+import styles from "../styles/login.module.css";
 
-function Login({ login, isLogged }) {
-  const [user, setUser] = useState({ username: "", password: "" });
-  const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {}, []);
-
-  const handleToken = (accessToken, refreshToken) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-    window.location.href = "/home";
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("/login", {
-        username: user.username,
-        password: user.password,
-      })
-      .then((response) => {
-        login();
-        handleToken(response.data.accessToken, response.data.refreshToken);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-        setErrorMessage(error.response.data.error);
-      });
-  };
-
+function Login({ handleSubmit, user, setUser, errorMessage }) {
+  console.log("login rendered");
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.loginMain}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -48,9 +21,7 @@ function Login({ login, isLogged }) {
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <Button className="btn btn-success" type="submit">
-          Login
-        </Button>
+        <button type="submit">Login</button>
       </form>
       <p>{errorMessage}</p>
     </div>
