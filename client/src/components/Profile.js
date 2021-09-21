@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import anonymuous from "../themes/user.png";
 
 export default function Profile() {
   const [user, setUser] = useState({ picture: null });
@@ -59,20 +60,21 @@ export default function Profile() {
   console.log();
   return (
     <div style={{ width: "100vw", textAlign: "center" }}>
-      <img
-        src={user.picture ? URL.createObjectURL(user.picture) : null}
-        alt="profie_picture"
-        width="300"
-        height="400"
-      />
+      
       {user && (
         <div className="text-center">
-          <img
+          {user.image? <img
             src={`http://localhost:4000/${user.image}`}
             alt="profie_picture"
             width="300"
             height="400"
-          />
+          /> : <img
+          src={user.picture ? URL.createObjectURL(user.picture) : anonymuous}
+          alt="profie_picture"
+          width="300"
+          height="400"
+        />}
+          
           <h3>Merhaba {user.name}</h3>
           <p>{new Date(user.dofj).toLocaleDateString()} tarihinde katıldınız</p>
         </div>
