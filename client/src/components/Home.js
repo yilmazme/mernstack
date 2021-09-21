@@ -3,10 +3,11 @@ import Navbar from "./Navbar";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import Spinner from "react-bootstrap/Spinner";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [users, setUsers] = useState({ loading: true, all: [] });
-
+  let axiosInst = axios.create();
   useEffect(() => {
     axiosInst
       .get("/users", {
@@ -21,7 +22,7 @@ function Home() {
       )
       .catch((res) => console.log(res));
   }, []);
-  let axiosInst = axios.create();
+
   const loggedUser = users.all.filter((user) => {
     return user.token === localStorage.getItem("refreshToken");
   })[0];
@@ -98,7 +99,7 @@ function Home() {
 
   console.log("home rendered");
   return (
-    <div className="home">
+    <div className="home" style={{ width: "100vw", textAlign: "center" }}>
       <Navbar />
       Merhaba {loggedUser && loggedUser.username}
       {users.loading && (
@@ -131,6 +132,7 @@ function Home() {
         );
       })}
       <button onClick={handleLogout}>LOGOUT</button>
+      <Link to={`/user/${loggedUser && loggedUser._id}`}>My Profile</Link>
     </div>
   );
 }

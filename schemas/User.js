@@ -1,4 +1,4 @@
-const { boolean } = require("joi");
+const { boolean, string } = require("joi");
 const mongoose = require("mongoose");
 
 const UserSchema = mongoose.Schema({
@@ -7,6 +7,7 @@ const UserSchema = mongoose.Schema({
   isadmin: { type: Boolean, default: false },
   username: { type: String, required: true },
   password: { type: String, required: true },
+  image: { type: String },
   dofj: { type: Date, default: Date.now },
   token: { type: String, default: null },
 });

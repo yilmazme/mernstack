@@ -1,12 +1,14 @@
 const express = require("express");
 const general = express.Router();
 const mongoose = require("mongoose");
-const User = require("../schemas/User");
 const UserSchema = require("../schemas/User");
 const auth = require("./auth");
+const register = require("./register");
 const validateFunction = require("./validation");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const path = require("path");
+
+const multer = require("multer");
 
 general.get("/api", (req, res) => {
   res.json("welcome");
@@ -16,7 +18,11 @@ general.get("/api", (req, res) => {
 
 general.use("/api/login", auth);
 
-// verify
+//register
+
+general.use("/api/register", register);
+
+// verify middleware
 const verify = (req, res, next) => {
   let authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -35,45 +41,68 @@ const verify = (req, res, next) => {
 general.get("/api/users", verify, (req, res) => {
   UserSchema.find()
     .then((data) => res.json(data))
-    .catch((err) => {
-      throw new Error(err.message);
-    });
+    .catch((err) => res.status(400).json({ error: err }));
 });
 
-//register
+//get profile
+general.get("/api/user/:id", verify, async (req, res) => {
+  UserSchema.findById(req.params.id)
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json({ error: err }));
+});
 
-general.post("/api/users", async (req, res) => {
-  let { username, password } = req.body;
-  //check validation
-  let { error } = validateFunction(req.body);
-  if (error) return res.status(400).json(error.details[0].message);
-  //check user exist
-  let user = await UserSchema.findOne({ username: username });
+//upload profile photo
 
-  if (user) {
-    res.status(400).json(`this username not available: ${username}`);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
   } else {
-    //hash password
-    let salt = await bcrypt.genSalt(11);
-    let hashedPassword = await bcrypt.hash(password, salt);
-
-    let newUser = new UserSchema({
-      _id: new mongoose.Types.ObjectId(),
-      name: req.body.name,
-      username: req.body.username,
-      password: hashedPassword,
-    });
-    try {
-      newUser.save();
-      res.json(newUser);
-    } catch (error) {
-      res.status(400).json(error);
-    }
+    cb(null, false);
   }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+  fileFilter: fileFilter,
 });
+
+general.post(
+  "/api/user/upload",
+  verify,
+  upload.single("myFile"),
+  async (req, res) => {
+    let id = req.user.id;
+    try {
+      const doc = await UserSchema.findOneAndUpdate(
+        { _id: id },
+        { image: req.file.path },
+        { new: true }
+      );
+      doc.token = null;
+      await doc.save();
+      res.status(200).json("your picture updated");
+    } catch (error) {
+      res.json(error);
+    }
+    console.log(req.body);
+    console.log(req.file.path);
+  }
+);
 
 //delete user,
-
 general.delete("/api/delete/:id", verify, (req, res) => {
   let id = req.params.id;
   if (req.user.id === id || req.user.isadmin) {

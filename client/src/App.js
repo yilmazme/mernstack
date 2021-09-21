@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Home from "./components/Home";
+import Signup from "./components/Signup";
+import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import {
   BrowserRouter as Router,
@@ -9,15 +11,21 @@ import {
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./components/Login";
-import jwtDecode from "jwt-decode";
 import axios from "axios";
 import styles from "./app.module.css";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("logged")));
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("logged"))
+  );
   const [user, setUser] = useState({ username: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
+  const [logModal, setLogModal] = useState(true);
 
+  //toggle between login and sign in form
+  const getLogOrSign = (c) => {
+    setLogModal(c);
+  };
   ////
 
   const handleToken = (accessToken, refreshToken) => {
@@ -36,10 +44,9 @@ function App() {
         handleToken(response.data.accessToken, response.data.refreshToken);
         localStorage.setItem("logged", JSON.stringify(true));
         //setIsLoggedIn(JSON.parse(localStorage.getItem("logged")));
-        setTimeout(()=>{
-          window.location.href = "/home";
-        },300)
-       
+        setTimeout(() => {
+          window.location.href = `/home`;
+        }, 300);
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -56,21 +63,27 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Redirect to="/welcome" />
+            {logModal ? (
+              <Login
+                handleSubmit={handleSubmit}
+                user={user}
+                errorMessage={errorMessage}
+                setUser={setUser}
+                passLogOrSign={getLogOrSign}
+              />
+            ) : (
+              <Signup passLogOrSign={getLogOrSign} />
+            )}
           </Route>
-          <Route path="/welcome">
-            <Login
-              handleSubmit={handleSubmit}
-              user={user}
-              errorMessage={errorMessage}
-              setUser={setUser}
-            />
-          </Route>
-
           <ProtectedRoute
             showRoute={isLoggedIn}
             path="/home"
             component={Home}
+          />
+          <ProtectedRoute
+            showRoute={isLoggedIn}
+            path="/user/:id"
+            component={Profile}
           />
           <Route path="*">
             NO SUCH PATH: <code>{window.location.href}</code>

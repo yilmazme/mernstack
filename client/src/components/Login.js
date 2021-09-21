@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/login.module.css";
 
-function Login({ handleSubmit, user, setUser, errorMessage }) {
+function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
+  const loginModal = false;
   console.log("login rendered");
   return (
     <div className={styles.loginMain}>
@@ -21,6 +22,13 @@ function Login({ handleSubmit, user, setUser, errorMessage }) {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
         <button type="submit">Login</button>
+        <span
+          onClick={() => {
+            passLogOrSign(loginModal);
+          }}
+        >
+          Sign up
+        </span>
       </form>
       <p>{errorMessage}</p>
     </div>

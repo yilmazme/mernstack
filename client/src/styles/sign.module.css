@@ -1,4 +1,4 @@
-.loginMain {
+.signMain {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -7,15 +7,15 @@
 }
 .form {
   position: relative;
-  bottom: 10rem;
+  bottom: 4rem;
   width: 24rem;
-  min-height: 16rem;
+  min-height: 28rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border-radius: 4px;
-  background-image: url("../themes/lock.jpg");
+  background-image: url("../themes/signup.jpg");
   background-size: cover;
   color: rgb(66, 58, 63);
   box-shadow: 3px 3px 3px black;
@@ -31,9 +31,10 @@
 
 .form label {
   font-weight: 600;
+  color: white;
 }
 
-.loginMain button {
+.signMain button {
   background-color: rgb(19, 206, 143);
   border: 1px solid transparent;
   font: 1em sans-serif;
@@ -41,13 +42,13 @@
   color: rgb(19, 17, 16);
   padding: 3px 7px;
 }
-.loginMain button:active {
+.signMain button:active {
   background-color: rgb(71, 243, 186);
 }
-.loginMain button:hover {
+.signMain button:hover {
   border: 1px solid black;
 }
-.loginMain p {
+.signMain p {
   position: absolute;
   color: red;
 }
