@@ -4,9 +4,12 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
+import styles from "../styles/home.module.css";
+import anonymous from "../themes/user.png";
 
 function Home() {
   const [users, setUsers] = useState({ loading: true, all: [] });
+  const [loggedUser, setLoggedUser] = useState(null);
   let axiosInst = axios.create();
   useEffect(() => {
     axiosInst
@@ -23,9 +26,13 @@ function Home() {
       .catch((res) => console.log(res));
   }, []);
 
-  const loggedUser = users.all.filter((user) => {
-    return user.token === localStorage.getItem("refreshToken");
-  })[0];
+  useEffect(() => {
+    setLoggedUser(
+      users.all.filter((user) => {
+        return user.token === localStorage.getItem("refreshToken");
+      })[0]
+    );
+  }, [users]);
 
   const handleDelete = async (id) => {
     await axiosInst
@@ -98,41 +105,41 @@ function Home() {
   };
 
   console.log("home rendered");
+  console.log(loggedUser);
   return (
-    <div className="home" style={{ width: "100vw", textAlign: "center" }}>
-      <Navbar />
-      Merhaba {loggedUser && loggedUser.username}
-      {users.loading && (
-        <>
-          <Spinner animation="grow" variant="primary" />
-          <Spinner animation="grow" variant="secondary" />
-          <Spinner animation="grow" variant="success" />
-          <Spinner animation="grow" variant="danger" />
-          <Spinner animation="grow" variant="warning" />
-          <Spinner animation="grow" variant="info" />
-          <Spinner animation="grow" variant="dark" />
-        </>
-      )}
-      {users.all.map((user) => {
-        return (
-          <div
-            key={user._id}
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-              width: "100%",
-              textAlign: "center",
-              height: "30px",
-            }}
-          >
-            <p>{user.name}</p>
-            <button onClick={() => handleDelete(user._id)}>x</button>
+    <div className={styles.homeMain}>
+      <div className={styles.nav}>
+        Merhaba {loggedUser?.username}
+        <Link to={`/user/${loggedUser?._id}`}>My Profile</Link>
+        <button onClick={handleLogout}>LOGOUT</button>
+      </div>
+
+      <div className={styles.cardContainer}>
+        {users.loading && (
+          <div className={styles.loading}>
+            <Spinner animation="grow" variant="primary" />
+            <Spinner animation="grow" variant="secondary" />
+            <Spinner animation="grow" variant="success" />
+            <Spinner animation="grow" variant="danger" />
+            <Spinner animation="grow" variant="warning" />
+            <Spinner animation="grow" variant="info" />
+            <Spinner animation="grow" variant="dark" />
           </div>
-        );
-      })}
-      <button onClick={handleLogout}>LOGOUT</button>
-      <Link to={`/user/${loggedUser && loggedUser._id}`}>My Profile</Link>
+        )}
+        {users.all.map((user) => {
+          return (
+            <div className={styles.userCard} key={user._id}>
+              <img
+                src={
+                  user.image ? `http://localhost:4000/${user.image}` : anonymous
+                }
+              />
+              <p>{user.name}</p>
+              <button onClick={() => handleDelete(user._id)}>x</button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

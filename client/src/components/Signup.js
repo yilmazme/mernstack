@@ -27,7 +27,7 @@ export default function Signin({ passLogOrSign }) {
       })
       .then((response) => {
         console.log(response);
-        window.location.href = "/welcome";
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -36,6 +36,9 @@ export default function Signin({ passLogOrSign }) {
   };
   return (
     <div className={styles.signMain}>
+      <div className={styles.banner1}>
+        <p>Let's paint it black</p>
+      </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
         <input
@@ -67,9 +70,11 @@ export default function Signin({ passLogOrSign }) {
         />
         <button type="submit">Sign</button>
         <span onClick={() => passLogOrSign(loginModal)}>Login</span>
+        <p>{errorMessage}</p>
       </form>
-
-      <p>{errorMessage}</p>
+      <div className={styles.banner2}>
+        <p>Or maybe not, i don't know</p>
+      </div>
     </div>
   );
 }

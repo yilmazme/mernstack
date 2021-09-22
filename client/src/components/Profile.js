@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import anonymuous from "../themes/user.png";
+import styles from "../styles/profile.module.css";
 
 export default function Profile() {
   const [user, setUser] = useState({ picture: null });
+  const [changing, setChanging] = useState(false);
 
   let { id } = useParams();
 
@@ -57,41 +59,47 @@ export default function Profile() {
   };
 
   console.log("profile rendered");
-  console.log();
   return (
-    <div style={{ width: "100vw", textAlign: "center" }}>
-      
+    <div className={styles.profileMain}>
       {user && (
-        <div className="text-center">
-          {user.image? <img
-            src={`http://localhost:4000/${user.image}`}
-            alt="profie_picture"
-            width="300"
-            height="400"
-          /> : <img
-          src={user.picture ? URL.createObjectURL(user.picture) : anonymuous}
-          alt="profie_picture"
-          width="300"
-          height="400"
-        />}
-          
+        <div className={styles.userSection}>
+          {user.image ? (
+            <img
+              src={`http://localhost:4000/${user.image}`}
+              alt="profie_picture"
+            />
+          ) : (
+            <img
+              src={
+                user.picture ? URL.createObjectURL(user.picture) : anonymuous
+              }
+              alt="profie_picture"
+            />
+          )}
+
           <h3>Merhaba {user.name}</h3>
           <p>{new Date(user.dofj).toLocaleDateString()} tarihinde katıldınız</p>
+          {changing ? (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="file"
+                name="file"
+                onChange={(e) =>
+                  setUser({ ...user, picture: e.target.files[0] })
+                }
+                accept="image/*"
+              />
+              <button type="submit">Upload</button>
+            </form>
+          ) : (
+            <button onClick={() => setChanging((c) => !c)}>Upload a Pic</button>
+          )}
         </div>
       )}
-      <button onClick={handleLogout}>LOGOUT</button>
-      <Link to="/home">Home</Link>
-      <div>
-        <form style={{}} onSubmit={handleSubmit}>
-          <label htmlFor="username">Picture:</label>
-          <input
-            type="file"
-            name="file"
-            onChange={(e) => setUser({ ...user, picture: e.target.files[0] })}
-            accept="image/*"
-          />
-          <button type="submit">Upload</button>
-        </form>
+
+      <div className={styles.nav}>
+        <button onClick={handleLogout}>LOGOUT</button>
+        <Link to="/home">Home</Link>
       </div>
     </div>
   );

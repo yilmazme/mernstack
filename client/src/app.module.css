@@ -1,6 +1,6 @@
 .app {
   box-sizing: border-box;
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(230, 230, 230);
   width: fit-content;
   height: auto;
 }
@@ -8,14 +8,5 @@
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }

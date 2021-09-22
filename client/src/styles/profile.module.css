@@ -1,0 +1,27 @@
+.profileMain {
+  background-color: inherit;
+  height: 100vh;
+  width: 100vw;
+}
+.userSection {
+  width: 30%;
+
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.userSection img {
+  border: 1px dashed brown;
+  border-radius: 50%;
+  width: 180px;
+  height: 240px;
+}
+
+.nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  text-align: center;
+  height: 2rem;
+}

@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(17, 58, 42);
 }
 .form {
   position: relative;
@@ -47,7 +48,7 @@
 .loginMain button:hover {
   border: 1px solid black;
 }
-.loginMain p {
+.form p {
   position: absolute;
   color: red;
 }
@@ -56,4 +57,25 @@ span {
   color: white;
   cursor: pointer;
   font-weight: 600;
+}
+
+.banner1 {
+  position: absolute;
+  left: 4%;
+  transform: rotateZ(-45deg);
+}
+.banner1 p {
+  color: #fff;
+  font-size: 38px;
+  font-family: "Finger Paint", cursive;
+}
+.banner2 {
+  position: absolute;
+  right: 9%;
+  transform: rotateZ(3deg);
+}
+.banner2 p {
+  color: #fff;
+  font-size: 38px;
+  font-family: "Finger Paint", cursive;
 }

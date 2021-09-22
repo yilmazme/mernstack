@@ -6,6 +6,9 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
   console.log("login rendered");
   return (
     <div className={styles.loginMain}>
+      <div className={styles.banner1}>
+        <p>The art is behind this door</p>
+      </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="username">Username:</label>
         <input
@@ -29,8 +32,11 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
         >
           Sign up
         </span>
+        <p>{errorMessage}</p>
       </form>
-      <p>{errorMessage}</p>
+      <div className={styles.banner2}>
+        <p>Or maybe not, i don't know</p>
+      </div>
     </div>
   );
 }

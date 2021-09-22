@@ -1,0 +1,35 @@
+.homeMain {
+  width: fit-content;
+}
+.cardContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+.userCard {
+  padding-top: 2rem;
+  text-align: center;
+  background-color: rgb(214, 224, 224);
+}
+
+.userCard img {
+  width: 200px;
+  height: 300px;
+}
+.nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: beige;
+  text-align: center;
+  height: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+.loading {
+  margin-top: 8rem;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
