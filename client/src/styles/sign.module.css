@@ -49,9 +49,10 @@
 .signMain button:hover {
   border: 1px solid black;
 }
-.form p {
-  position: absolute;
+.errorMessage{
+  position: relative;
   color: red;
+  background-color: #fff;
 }
 
 span {

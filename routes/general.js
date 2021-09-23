@@ -107,11 +107,11 @@ general.delete("/api/delete/:id", verify, (req, res) => {
   let id = req.params.id;
   if (req.user.id === id || req.user.isadmin) {
     UserSchema.findOneAndDelete({ _id: id }).exec((err, doc) => {
-      if (err) return res.status(400).json({ success: false, err });
+      if (err) return res.status(400).json({ success: false, error:"can not delete" });
       res.status(200).send("user deleted");
     });
   } else {
-    res.status(403).send("you are not allowed");
+    res.status(403).json({error:"you are not allowed"});
   }
 });
 

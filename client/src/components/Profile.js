@@ -54,7 +54,9 @@ export default function Profile() {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => setTimeout(() => {
+        window.location.href=`/user/${id}`
+      }, 100))
       .catch((err) => console.log(err));
   };
 

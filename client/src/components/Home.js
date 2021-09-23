@@ -48,7 +48,7 @@ function Home() {
           all: users.all.filter((user) => user._id !== id),
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response.data.error));
   };
   // refresh stuff
   async function refreshToken() {
@@ -105,11 +105,10 @@ function Home() {
   };
 
   console.log("home rendered");
-  console.log(loggedUser);
   return (
     <div className={styles.homeMain}>
       <div className={styles.nav}>
-        Merhaba {loggedUser?.username}
+        Merhaba {loggedUser?.name}
         <Link to={`/user/${loggedUser?._id}`}>My Profile</Link>
         <button onClick={handleLogout}>LOGOUT</button>
       </div>

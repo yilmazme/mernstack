@@ -18,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("logged"))
   );
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [logModal, setLogModal] = useState(true);
 
@@ -37,14 +37,12 @@ function App() {
     e.preventDefault();
     await axios
       .post("/login", {
-        username: user.username,
+        email: user.email,
         password: user.password,
       })
       .then((response) => {
         handleToken(response.data.accessToken, response.data.refreshToken);
         localStorage.setItem("logged", JSON.stringify(true));
-        console.log(response.data);
-        //setIsLoggedIn(JSON.parse(localStorage.getItem("logged")));
         setTimeout(() => {
           window.location.href = `/home`;
         }, 300);

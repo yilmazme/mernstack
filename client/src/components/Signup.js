@@ -5,7 +5,7 @@ import axios from "axios";
 export default function Signin({ passLogOrSign }) {
   const [user, setUser] = useState({
     name: "",
-    username: "",
+    email: "",
     password: "",
     passwordAgain: "",
   });
@@ -22,7 +22,7 @@ export default function Signin({ passLogOrSign }) {
     await axios
       .post("/register", {
         name: user.name,
-        username: user.username,
+        email: user.email,
         password: user.password,
       })
       .then((response) => {
@@ -47,13 +47,14 @@ export default function Signin({ passLogOrSign }) {
           name="name"
           value={user.name}
           onChange={(e) => setUser({ ...user, name: e.target.value })}
+          autoFocus
         />
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="text"
-          name="username"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          name="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -71,7 +72,7 @@ export default function Signin({ passLogOrSign }) {
         />
         <button type="submit">Sign</button>
         <span onClick={() => passLogOrSign(loginModal)}>{"<< Login"}</span>
-        <p>{errorMessage}</p>
+        <p className={styles.errorMessage}>{errorMessage}</p>
       </form>
       <div className={styles.banner2}>
         <p>Or maybe not, i don't know</p>

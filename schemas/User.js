@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   name: { type: String, required: true },
   isadmin: { type: Boolean, default: false },
-  username: { type: String, required: true },
+  email: { type: String, required: true },
   password: { type: String, required: true },
   image: { type: String },
   dofj: { type: Date, default: Date.now },

@@ -45,12 +45,13 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
         <p>Lorem ipsum dolar sit</p>
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="text"
-          name="username"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          name="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          autoFocus
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -62,7 +63,7 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
         <button type="submit">Login</button>
 
         <GoogleLogin
-          clientId="428501004822-jvpvitto2ptneq02qkqf6v7g1f440i7h.apps.googleusercontent.com"
+          clientId={process.env.REACT_APP_GOOGLE_API_KEY}
           render={(renderProps) => (
             <button
               style={{
@@ -94,8 +95,9 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
         >
           {"Sign up >>"}
         </span>
-        <p>{errorMessage}</p>
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       </form>
+      
       <div className={styles.banner2}>
         <p>Or maybe not, i don't know</p>
       </div>

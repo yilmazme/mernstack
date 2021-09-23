@@ -11,15 +11,15 @@ const upload = multer({ dest: "uploads/" });
 //register
 
 register.post("/", upload.array("photos", 4), async (req, res) => {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
   //check validation
   let { error } = validateFunction(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
   //check user exist
-  let user = await UserSchema.findOne({ username: username });
+  let user = await UserSchema.findOne({ email: email });
 
   if (user) {
-    res.status(400).json({ error: `this username not available: ${username}` });
+    res.status(400).json({ error: `this email not available: ${email}` });
   } else {
     //hash password
     let salt = await bcrypt.genSalt(11);
@@ -28,7 +28,7 @@ register.post("/", upload.array("photos", 4), async (req, res) => {
     let newUser = new UserSchema({
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
-      username: req.body.username,
+      email: req.body.email,
       password: hashedPassword,
     });
     try {

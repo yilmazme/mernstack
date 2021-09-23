@@ -52,21 +52,21 @@ const generateRefreshToken = (user) => {
 
 //login
 auth.post("/", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  let user = await UserSchema.findOne({ username: username });
+  let user = await UserSchema.findOne({ email: email });
   if (!user) {
-    return res.status(400).json({ error: "Username or Password incorrect" });
+    return res.status(400).json({ error: "email or Password incorrect" });
   }
 
   let passwordCheck = await bcrypt.compare(password, user.password);
   if (!passwordCheck) {
-    return res.status(400).json({ error: "Username or Password incorrect" });
+    return res.status(400).json({ error: "email or Password incorrect" });
   }
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
   await UserSchema.findOneAndUpdate(
-    { username: username },
+    { email: email },
     { token: refreshToken }
   );
   res.json({
@@ -92,7 +92,7 @@ auth.post("/google", async (req, response) => {
       const { email_verified, name, email } = res.payload;
 
       if (email_verified) {
-        UserSchema.findOne({ username: email }).exec(async (err, user) => {
+        UserSchema.findOne({ email: email }).exec(async (err, user) => {
           if (err) {
             return response
               .status(400)
@@ -103,7 +103,7 @@ auth.post("/google", async (req, response) => {
               const accessToken = generateAccessToken(user);
               const refreshToken = generateRefreshToken(user);
               await UserSchema.findOneAndUpdate(
-                { username: email },
+                { email: email },
                 { token: refreshToken }
               );
               response.json({
@@ -121,7 +121,7 @@ auth.post("/google", async (req, response) => {
               let newUser = new UserSchema({
                 _id: new mongoose.Types.ObjectId(),
                 name: name,
-                username: email,
+                email: email,
                 password: hashedPassword,
               });
               //registration will continue with login
@@ -135,7 +135,7 @@ auth.post("/google", async (req, response) => {
                   const accessToken = generateAccessToken(data);
                   const refreshToken = generateRefreshToken(data);
                   await UserSchema.findOneAndUpdate(
-                    { username: email },
+                    { email: email },
                     { token: refreshToken }
                   );
                   response.json({
