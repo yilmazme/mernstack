@@ -12,7 +12,7 @@ auth.use(express.urlencoded({ extended: false }));
 
 //for google login
 const client = new OAuth2Client(
-  "428501004822-jvpvitto2ptneq02qkqf6v7g1f440i7h.apps.googleusercontent.com"
+  process.env.GOOGLE_API_KEY
 );
 //
 
@@ -85,8 +85,7 @@ auth.post("/google", async (req, response) => {
   client
     .verifyIdToken({
       idToken: tokenId,
-      audience:
-        "428501004822-jvpvitto2ptneq02qkqf6v7g1f440i7h.apps.googleusercontent.com",
+      audience:process.env.GOOGLE_API_KEY
     })
     .then((res) => {
       const { email_verified, name, email } = res.payload;
