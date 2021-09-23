@@ -79,3 +79,8 @@ span {
   font-size: 38px;
   font-family: "Finger Paint", cursive;
 }
+
+.googleBtn {
+  background-color: #fff;
+  border-radius: 0;
+}

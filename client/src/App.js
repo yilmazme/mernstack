@@ -43,6 +43,7 @@ function App() {
       .then((response) => {
         handleToken(response.data.accessToken, response.data.refreshToken);
         localStorage.setItem("logged", JSON.stringify(true));
+        console.log(response.data);
         //setIsLoggedIn(JSON.parse(localStorage.getItem("logged")));
         setTimeout(() => {
           window.location.href = `/home`;

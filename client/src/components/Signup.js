@@ -34,6 +34,7 @@ export default function Signin({ passLogOrSign }) {
         setErrorMessage(error.response.data.error);
       });
   };
+
   return (
     <div className={styles.signMain}>
       <div className={styles.banner1}>
@@ -69,7 +70,7 @@ export default function Signin({ passLogOrSign }) {
           onChange={(e) => setUser({ ...user, passwordAgain: e.target.value })}
         />
         <button type="submit">Sign</button>
-        <span onClick={() => passLogOrSign(loginModal)}>Login</span>
+        <span onClick={() => passLogOrSign(loginModal)}>{"<< Login"}</span>
         <p>{errorMessage}</p>
       </form>
       <div className={styles.banner2}>
