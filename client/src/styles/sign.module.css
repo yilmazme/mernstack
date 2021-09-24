@@ -18,8 +18,8 @@
   border-radius: 4px;
   background-image: url("../themes/signup.jpg");
   background-size: cover;
-  color: rgb(66, 58, 63);
   box-shadow: 3px 3px 3px black;
+  z-index: 2;
 }
 
 .form input {
@@ -31,8 +31,8 @@
 }
 
 .form label {
-  font-weight: 600;
-  color: black;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
 }
 
 .signMain button {
@@ -49,7 +49,7 @@
 .signMain button:hover {
   border: 1px solid black;
 }
-.errorMessage{
+.errorMessage {
   position: relative;
   color: red;
   background-color: #fff;
@@ -65,6 +65,7 @@ span {
   position: absolute;
   left: 4%;
   transform: rotateZ(-45deg);
+  z-index: 1;
 }
 .banner1 p {
   color: #fff;
@@ -75,9 +76,47 @@ span {
   position: absolute;
   right: 7%;
   transform: rotateZ(3deg);
+  z-index: 1;
 }
 .banner2 p {
   color: #fff;
   font-size: 32px;
   font-family: "Finger Paint", cursive;
+}
+
+@media (max-width: 800px) {
+  .signMain {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .form {
+    position: relative;
+    bottom: 0;
+    width: 90%;
+    min-height: 45%;
+  }
+
+  .banner1 {
+    position: relative;
+    text-align: center;
+    left: 0;
+    transform: rotateZ(-5deg);
+  }
+  .banner1 p {
+    font-size: 28px;
+  }
+  .banner2 {
+    position: relative;
+    text-align: center;
+    right: 0;
+    transform: rotateZ(3deg);
+  }
+  .banner2 p {
+    font-size: 28px;
+  }
 }

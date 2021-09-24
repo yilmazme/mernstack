@@ -2,26 +2,77 @@
   background-color: inherit;
   height: 100vh;
   width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  background-color: azure;
 }
 .userSection {
-  width: 30%;
-
+  position: relative;
+  width: 20rem;
+  background-color: rgba(196, 227, 248, 0.267);
   text-align: center;
-  padding-top: 2rem;
+  padding: 3.2rem 1rem;
 }
 
-.userSection img {
-  border: 1px dashed brown;
-  border-radius: 50%;
-  width: 180px;
-  height: 240px;
+.frame {
+  width: 220px;
+  height: 260px;
+  z-index: 2;
+  margin-bottom: 0;
+}
+.profileImg {
+  margin-top: 0;
+  width: 160px;
+  height: 200px;
+  position: relative;
+  bottom: 230px;
+  right: 8px;
+  z-index: 1;
 }
 
 .nav {
+  background-color: black;
   position: absolute;
   top: 0;
   width: 100%;
-
-  text-align: center;
   height: 2rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+a:link {
+  text-decoration: none;
+  font-weight: 600;
+  background-color: aliceblue;
+}
+.nav button {
+  height: 100%;
+  background-color: aliceblue;
+  color: red;
+}
+.cameraPng {
+  width: 2rem !important;
+  height: 2rem !important;
+  background-color: inherit;
+  color: aliceblue;
+  border: none !important;
+  position: absolute;
+  top: 2.2rem;
+  right: 5px;
+  cursor: pointer;
+  filter: sepia(67%) saturate(100);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  bottom: 280px;
+}
+.form button {
+  background-color: green;
+  color: aliceblue;
+  width: 34%;
+  margin-top: 1.2rem;
 }

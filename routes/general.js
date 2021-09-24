@@ -86,14 +86,18 @@ general.post(
   async (req, res) => {
     let id = req.user.id;
     try {
-      const doc = await UserSchema.findOneAndUpdate(
-        { _id: id },
-        { image: req.file.path },
-        { new: true }
-      );
-      doc.token = null;
-      await doc.save();
-      res.status(200).json("your picture updated");
+      if (req.file.path) {
+        const doc = await UserSchema.findOneAndUpdate(
+          { _id: id },
+          { image: req.file.path },
+          { new: true }
+        );
+        doc.token = null;
+        await doc.save();
+        res.status(200).json("your picture updated");
+      } else {
+        res.status(400).json({ error: "you should choose a file" });
+      }
     } catch (error) {
       res.json(error);
     }
@@ -107,11 +111,14 @@ general.delete("/api/delete/:id", verify, (req, res) => {
   let id = req.params.id;
   if (req.user.id === id || req.user.isadmin) {
     UserSchema.findOneAndDelete({ _id: id }).exec((err, doc) => {
-      if (err) return res.status(400).json({ success: false, error:"can not delete" });
+      if (err)
+        return res
+          .status(400)
+          .json({ success: false, error: "can not delete" });
       res.status(200).send("user deleted");
     });
   } else {
-    res.status(403).json({error:"you are not allowed"});
+    res.status(403).json({ error: "you are not allowed" });
   }
 });
 

@@ -11,9 +11,7 @@ auth.use(express.json());
 auth.use(express.urlencoded({ extended: false }));
 
 //for google login
-const client = new OAuth2Client(
-  process.env.GOOGLE_API_KEY
-);
+const client = new OAuth2Client(process.env.GOOGLE_API_KEY);
 //
 
 //refresh token
@@ -36,7 +34,7 @@ auth.post("/refresh", async (req, res) => {
 //generate tokens
 const generateAccessToken = (user) => {
   let accessToken = jwt.sign(
-    { id: user._id, isadmin: user.isadmin },
+    { id: user?._id, isadmin: user.isadmin },
     process.env.SECRET_DE_SUS_OJOS,
     { expiresIn: "10m" }
   );
@@ -65,10 +63,7 @@ auth.post("/", async (req, res) => {
   }
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
-  await UserSchema.findOneAndUpdate(
-    { email: email },
-    { token: refreshToken }
-  );
+  await UserSchema.findOneAndUpdate({ email: email }, { token: refreshToken });
   res.json({
     id: user._id,
     isadmin: user.isadmin,
@@ -85,7 +80,7 @@ auth.post("/google", async (req, response) => {
   client
     .verifyIdToken({
       idToken: tokenId,
-      audience:process.env.GOOGLE_API_KEY
+      audience: process.env.GOOGLE_API_KEY,
     })
     .then((res) => {
       const { email_verified, name, email } = res.payload;

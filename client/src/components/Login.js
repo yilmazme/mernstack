@@ -42,7 +42,7 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
   return (
     <div className={styles.loginMain}>
       <div className={styles.banner1}>
-        <p>Lorem ipsum dolar sit</p>
+        <p>Nothing is behind this door</p>
       </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -97,7 +97,7 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
         </span>
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       </form>
-      
+
       <div className={styles.banner2}>
         <p>Or maybe not, i don't know</p>
       </div>

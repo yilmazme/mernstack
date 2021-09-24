@@ -26,7 +26,7 @@ function App() {
   const getLogOrSign = (c) => {
     setLogModal(c);
   };
-  ////
+  //
 
   const handleToken = (accessToken, refreshToken) => {
     localStorage.setItem("accessToken", accessToken);
