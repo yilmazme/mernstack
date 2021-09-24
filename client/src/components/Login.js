@@ -4,8 +4,6 @@ import axios from "axios";
 import GoogleLogin from "react-google-login";
 import googlePng from "../themes/google.png";
 
-//client id: 428501004822-jvpvitto2ptneq02qkqf6v7g1f440i7h.apps.googleusercontent.com
-
 //all props comeing from app (local login)
 function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
   //this is just for toggle login signup modal
