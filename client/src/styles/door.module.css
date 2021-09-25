@@ -1,0 +1,20 @@
+.door{
+    margin: 0;
+    height: 100vh;
+    background-color: palevioletred;
+}
+.doorImg{
+    height: calc(100vh - 4.2rem) !important;
+}
+.cameraPng {
+    width: 2rem !important;
+    height: 2rem !important;
+    background-color: inherit;
+    color: aliceblue;
+    border: none !important;
+    position: absolute;
+    top: 2.2rem;
+    right: 5px;
+    cursor: pointer;
+
+  }

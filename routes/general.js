@@ -79,6 +79,7 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
+// this is for profile pic
 general.post(
   "/api/user/upload",
   verify,
@@ -95,6 +96,34 @@ general.post(
         doc.token = null;
         await doc.save();
         res.status(200).json("your picture updated");
+      } else {
+        res.status(400).json({ error: "you should choose a file" });
+      }
+    } catch (error) {
+      res.json(error);
+    }
+    console.log(req.body);
+    console.log(req.file.path);
+  }
+);
+
+// this is for door pic
+general.post(
+  "/api/user/uploaddoor",
+  verify,
+  upload.single("myFile"),
+  async (req, res) => {
+    let id = req.user.id;
+    try {
+      if (req.file.path) {
+        const doc = await UserSchema.findOneAndUpdate(
+          { _id: id },
+          { doorimage: req.file.path },
+          { new: true }
+        );
+        doc.token = null;
+        await doc.save();
+        res.status(200).json("your door picture updated");
       } else {
         res.status(400).json({ error: "you should choose a file" });
       }
@@ -134,5 +163,12 @@ general.post("/api/logout", verify, async (req, res) => {
     res.json(error);
   }
 });
+//download image
+
+// general.get("/api/download", (req, res, next) => {
+//   const image = path.join(__dirname, "/uploads", `/${req.body.imageName}`);
+//   res.download(image);
+// });
+
 
 module.exports = general;

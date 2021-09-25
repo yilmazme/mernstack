@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import anonymuous from "../themes/user.png";
 import styles from "../styles/profile.module.css";
 import camera from "../themes/camera.png";
 import jwtDecode from "jwt-decode";
 import frame from "../themes/frame.png";
+import Door from "./Door";
 
 export default function Profile() {
-  const [user, setUser] = useState({ picture: null });
+  const [user, setUser] = useState({});
   const [changing, setChanging] = useState(false);
 
   let { id } = useParams();
@@ -24,6 +24,10 @@ export default function Profile() {
       //.then((res) => console.log(res.data))
       .catch((err) => console.log(err.response.data));
   }, []);
+
+//this is for getting door from child comp and store in state
+const getDoor=el=> setUser({...user, doorimage:el})
+
 
   // refresh stuff
   async function refreshToken() {
@@ -72,9 +76,10 @@ export default function Profile() {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("logged");
-        console.log(res);
-
-        window.location.href = "/";
+        console.log(res.data);
+        setTimeout(()=>{
+          window.location.href = "/";
+        },300)
       })
       .catch((err) => console.log("here we go:" + err));
   };
@@ -82,7 +87,7 @@ export default function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("myFile", user.picture);
+    formData.append("myFile", user.image);
     axios
       .post("/user/upload", formData, {
         headers: {
@@ -97,41 +102,65 @@ export default function Profile() {
       .catch((err) => console.log(err));
   };
 
+  // delete users
+  const handleDelete = async (id) => {
+      //warning flag will be here
+
+    await axiosInst
+      .delete(`/delete/${id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+        },
+      })
+      .then((res) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("logged");
+        console.log(res.data);
+        setTimeout(()=>{
+          window.location.href = "/";
+        },300)
+        // setUsers({
+        //   loading: users.loading,
+        //   all: users.all.filter((user) => user._id !== id),
+        // });
+      })
+      .catch((err) => console.log(err.response.data.error));
+  };
+
+console.log(typeof user.image)
   console.log("profile rendered");
   return (
     <div className={styles.profileMain}>
       {user && (
         <div className={styles.userSection}>
-          {user.image ? (
             <>
               <img className={styles.frame} src={frame} alt="frame" />
               <img
                 className={styles.profileImg}
-                src={`http://localhost:4000/${user.image}`}
+                src={(typeof user.image==="object")? URL.createObjectURL(user.image)
+              :`http://localhost:4000/${user.image}`
+              }
+                
+              //   {`http://localhost:4000/${(typeof user.image)==="object"?
+              //   URL.createObjectURL(user.image) : user.image 
+              // }`}
                 alt="profie_picture"
               />
             </>
-          ) : (
-            <img
-              className={styles.profileImg}
-              src={
-                user.picture ? URL.createObjectURL(user.picture) : anonymuous
-              }
-              alt="profie_picture"
-            />
-          )}
 
           <h3>Merhaba {user.name?.split(" ")[0]}</h3>
           <p>
             {new Date(user.dofj)?.toLocaleDateString()} tarihinde katıldınız
           </p>
+          <button onClick={() => handleDelete(user._id)}>x</button>
           {changing ? (
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 type="file"
                 name="file"
                 onChange={(e) =>
-                  setUser({ ...user, picture: e.target.files[0] })
+                  setUser({ ...user, image: e.target.files[0] })
                 }
                 accept="image/*"
                 required
@@ -147,7 +176,10 @@ export default function Profile() {
           )}
         </div>
       )}
-
+      <div className={styles.doorMain}> 
+        <Door door={user?.doorimage} sendDoor={c => getDoor(c)}/>
+      </div>
+     
       <div className={styles.nav}>
         <Link to="/home">Home</Link>
         <button onClick={handleLogout}>LOGOUT</button>

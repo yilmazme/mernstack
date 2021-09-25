@@ -1,0 +1,22 @@
+.imageDiv{
+    position: fixed;
+    top: 0;
+    background-color: white;
+    margin-top: 6rem;
+    text-align: center;
+    color: white;
+    z-index: 15;
+    width: 96vw;
+    height: auto;
+    margin: auto;
+    padding: auto;
+    padding: 2rem;
+    
+}
+
+.imageDiv img{
+    margin: auto;
+    width: 80vw;
+    height: auto;
+    overflow-y: scroll;
+}

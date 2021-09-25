@@ -34,9 +34,9 @@ auth.post("/refresh", async (req, res) => {
 //generate tokens
 const generateAccessToken = (user) => {
   let accessToken = jwt.sign(
-    { id: user?._id, isadmin: user.isadmin },
+    { id: user?._id, isadmin: user?.isadmin },
     process.env.SECRET_DE_SUS_OJOS,
-    { expiresIn: "10m" }
+    { expiresIn: "1m" }
   );
   return accessToken;
 };
@@ -117,6 +117,8 @@ auth.post("/google", async (req, response) => {
                 name: name,
                 email: email,
                 password: hashedPassword,
+                image:"uploads/user.png",
+                doorimage:"uploads/user.png"
               });
               //registration will continue with login
               newUser.save(async (err, data) => {

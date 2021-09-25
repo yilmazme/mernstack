@@ -29,6 +29,8 @@ register.post("/", upload.array("photos", 4), async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
+      image:"uploads/user.png",
+      doorimage:"uploads/user.png"
     });
     try {
       newUser.save();

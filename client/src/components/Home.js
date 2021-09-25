@@ -5,11 +5,20 @@ import jwtDecode from "jwt-decode";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import styles from "../styles/home.module.css";
-import anonymous from "../themes/user.png";
+import Backdrop from "./subs/Backdrop";
+import Image from "./subs/Image";
 
 function Home() {
   const [users, setUsers] = useState({ loading: true, all: [] });
   const [loggedUser, setLoggedUser] = useState(null);
+
+const [backdrop, setBackdrop] = useState(false);
+const [picId, setPicId] = useState(null);
+
+function openPic(x) {
+  setBackdrop(true)
+  setPicId(x)
+}
   let axiosInst = axios.create();
   useEffect(() => {
     axiosInst
@@ -34,22 +43,7 @@ function Home() {
     );
   }, [users]);
 
-  const handleDelete = async (id) => {
-    await axiosInst
-      .delete(`/delete/${id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setUsers({
-          loading: users.loading,
-          all: users.all.filter((user) => user._id !== id),
-        });
-      })
-      .catch((err) => console.log(err.response.data.error));
-  };
+  
   // refresh stuff
   async function refreshToken() {
     try {
@@ -105,12 +99,22 @@ function Home() {
   };
 
   console.log("home rendered");
+ 
   return (
     <div className={styles.homeMain}>
       <div className={styles.nav}>
-        Merhaba {loggedUser?.name}
-        <Link to={`/user/${loggedUser?._id}`}>My Profile</Link>
-        <button onClick={handleLogout}>LOGOUT</button>
+        <Link to={`/user/${loggedUser?._id}`}>
+        <img src={`http://localhost:4000/${loggedUser?.image}` } 
+        alt="user" 
+        style={{width:"2rem", height:"2rem",
+        borderRadius:"50%", margin:"0 5px"
+        }}/>
+        <span style={{color:"black", backgroundColor:"inherit"}}>
+          Hello {loggedUser?.name}
+        </span>
+        
+        </Link>
+        <button onClick={handleLogout}>Logout</button>
       </div>
 
       <div className={styles.cardContainer}>
@@ -129,16 +133,30 @@ function Home() {
           return (
             <div className={styles.userCard} key={user._id}>
               <img
-                src={
-                  user.image ? `http://localhost:4000/${user.image}` : anonymous
-                }
+                onClick={()=>openPic(user._id)}
+                src={`http://localhost:4000/${user.doorimage}` }
+                alt="userImage"
               />
-              <p>{user.name}</p>
-              <button onClick={() => handleDelete(user._id)}>x</button>
+              <p>By {user.name}</p>
+             
             </div>
           );
         })}
       </div>
+      {backdrop && <Backdrop onClick={()=>setBackdrop(false)}/>}
+      {backdrop && 
+      <Image 
+      likes={users.all.filter(el=>el._id === picId)
+        .map(ele=>ele.doorlikes)
+        } 
+      source={users.all.filter(el=>el._id === picId)
+      .map(ele=>`http://localhost:4000/${ele.doorimage}`)
+      } 
+     
+      
+      // onClick={()=>setBackdrop(false)}
+      
+      />}
     </div>
   );
 }
