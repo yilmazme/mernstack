@@ -1,36 +1,119 @@
 .homeMain {
   width: fit-content;
+  margin: auto;
+  background-color: rgb(249, 255, 255);
 }
 .cardContainer {
   width: 100vw;
-  display: flex;
-  justify-content: space-evenly;
-}
-.userCard {
-  padding-top: 2rem;
-  text-align: center;
-  background-color: rgb(214, 224, 224);
+  display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-gap: 20px;
+grid-auto-flow: dense;
+  padding: 4rem;
 }
 
+.userCard {
+  position: relative;
+  padding-top: 1rem;
+  width: 100%;
+  height: 80vh;
+  text-align: center;
+  background-color: green;
+  height: 80vh;
+}
+.userCard:hover{
+  opacity: 0.9;
+}
 .userCard img {
-  width: 200px;
-  height: 300px;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   cursor: zoom-in;
 }
-.nav {
+.cardInfo{
   position: absolute;
   top: 0;
+  left: 0;
+  height: 3rem;
   width: 100%;
-  background-color: beige;
-  text-align: center;
-  height: 2rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2rem 1rem 2rem;
+  font-size: 12px;
+  visibility: hidden;
+  color: white;
+  background-color: rgba(24, 23, 23, 0.507);
+  z-index: 2;
 }
+.cardInfoBottom{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2rem 1rem 2rem;
+  font-size: 12px;
+  visibility: hidden;
+  color: white;
+  background-color: rgba(24, 23, 23, 0.507);
+}
+
+
+.nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.24);
+}
+.nav:hover{
+  background-color: rgba(0, 0, 0, 0.445);
+}
+
 .loading {
   margin-top: 8rem;
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
+}
+
+
+
+.userCard:hover .cardInfo{
+  visibility: visible;
+}
+.userCard:hover .cardInfoBottom{
+  visibility: visible;
+}
+
+.FavoriteIcon{
+  color: red;
+}
+
+.FavoriteIcon:hover{
+  color: palevioletred;
+}
+.PowerSettingsNewIcon{
+  color: rgb(0, 0, 0);
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.PowerSettingsNewIcon:hover{
+  color: rgb(155, 0, 0);
+  margin-top: 6px;
 }

@@ -6,6 +6,9 @@ import camera from "../themes/camera.png";
 import jwtDecode from "jwt-decode";
 import frame from "../themes/frame.png";
 import Door from "./Door";
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import Home from "@material-ui/icons/Home";
+
 
 export default function Profile() {
   const [user, setUser] = useState({});
@@ -181,8 +184,10 @@ console.log(typeof user.image)
       </div>
      
       <div className={styles.nav}>
-        <Link to="/home">Home</Link>
-        <button onClick={handleLogout}>LOGOUT</button>
+      <PowerSettingsNewIcon onClick={handleLogout} className={styles.PowerSettingsNewIcon} />
+        <Home onClick={()=>window.location.href="/home"} className={styles.Home} />
+       
+       
       </div>
     </div>
   );

@@ -7,18 +7,20 @@ import { Link } from "react-router-dom";
 import styles from "../styles/home.module.css";
 import Backdrop from "./subs/Backdrop";
 import Image from "./subs/Image";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 function Home() {
   const [users, setUsers] = useState({ loading: true, all: [] });
   const [loggedUser, setLoggedUser] = useState(null);
 
-const [backdrop, setBackdrop] = useState(false);
-const [picId, setPicId] = useState(null);
+  const [backdrop, setBackdrop] = useState(false);
+  const [picId, setPicId] = useState(null);
 
-function openPic(x) {
-  setBackdrop(true)
-  setPicId(x)
-}
+  function openPic(x) {
+    setBackdrop(true)
+    setPicId(x)
+  }
   let axiosInst = axios.create();
   useEffect(() => {
     axiosInst
@@ -43,7 +45,7 @@ function openPic(x) {
     );
   }, [users]);
 
-  
+
   // refresh stuff
   async function refreshToken() {
     try {
@@ -99,22 +101,25 @@ function openPic(x) {
   };
 
   console.log("home rendered");
- 
+
   return (
     <div className={styles.homeMain}>
       <div className={styles.nav}>
-        <Link to={`/user/${loggedUser?._id}`}>
-        <img src={`http://localhost:4000/${loggedUser?.image}` } 
-        alt="user" 
-        style={{width:"2rem", height:"2rem",
-        borderRadius:"50%", margin:"0 5px"
-        }}/>
-        <span style={{color:"black", backgroundColor:"inherit"}}>
-          Hello {loggedUser?.name}
-        </span>
-        
+      
+      <PowerSettingsNewIcon onClick={handleLogout} className={styles.PowerSettingsNewIcon} />
+        <Link to={`/user/${loggedUser?._id}`} style={{ color: "black", backgroundColor: "unset" }}>
+          <img src={`http://localhost:4000/${loggedUser?.image}`}
+            alt="user"
+            style={{
+              width: "2rem", height: "2rem",
+              borderRadius: "50%", margin: "0 5px"
+            }} />
+          <span style={{color:"black", fontFamily:"cursive", fontSize:"14px"}}>
+          {loggedUser?.name}
+          </span>
+
         </Link>
-        <button onClick={handleLogout}>Logout</button>
+        
       </div>
 
       <div className={styles.cardContainer}>
@@ -132,31 +137,39 @@ function openPic(x) {
         {users.all.map((user) => {
           return (
             <div className={styles.userCard} key={user._id}>
+               <div className={styles.cardInfo}>
+                <p>By {user.name}</p>
+                <span style={{display:"flex",alignItems:"center"}}>
+                  <FavoriteIcon className={styles.FavoriteIcon} />
+                  <p style={{ margin:"2px"}}>{user?.doorlikes}</p>
+                </span>
+              </div>
               <img
-                onClick={()=>openPic(user._id)}
-                src={`http://localhost:4000/${user.doorimage}` }
+                onClick={() => openPic(user._id)}
+                src={`http://localhost:4000/${user.doorimage}`}
                 alt="userImage"
               />
-              <p>By {user.name}</p>
-             
+              <div className={styles.cardInfoBottom}>
+                <button>Download</button>
+              </div>
             </div>
           );
         })}
       </div>
-      {backdrop && <Backdrop onClick={()=>setBackdrop(false)}/>}
-      {backdrop && 
-      <Image 
-      likes={users.all.filter(el=>el._id === picId)
-        .map(ele=>ele.doorlikes)
-        } 
-      source={users.all.filter(el=>el._id === picId)
-      .map(ele=>`http://localhost:4000/${ele.doorimage}`)
-      } 
-     
-      
-      // onClick={()=>setBackdrop(false)}
-      
-      />}
+      {backdrop && <Backdrop onClick={() => setBackdrop(false)} />}
+      {backdrop &&
+        <Image user={users.all.filter(el => el._id === picId)[0]}
+        // likes={users.all.filter(el=>el._id === picId)
+        //   .map(ele=>ele.doorlikes)
+        //   } 
+        // source={users.all.filter(el=>el._id === picId)
+        // .map(ele=>`http://localhost:4000/${ele.doorimage}`)
+        // } 
+
+
+        // onClick={()=>setBackdrop(false)}
+
+        />}
     </div>
   );
 }
