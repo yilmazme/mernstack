@@ -1,19 +1,20 @@
 .door{
     margin: 0;
     height: 100vh;
-    background-color: palevioletred;
+    padding: 1rem 0;
 }
 .doorImg{
-    height: calc(100vh - 4.2rem) !important;
+    height: 80vh !important;
+    border-radius: 1%;
 }
 .cameraPng {
-    width: 2rem !important;
-    height: 2rem !important;
+    width: 1.2rem !important;
+    height: 1.2rem !important;
     background-color: inherit;
     color: aliceblue;
     border: none !important;
     position: absolute;
-    top: 2.2rem;
+    top: 5rem;
     right: 5px;
     cursor: pointer;
 

@@ -6,8 +6,10 @@ import camera from "../themes/camera.png";
 import jwtDecode from "jwt-decode";
 import frame from "../themes/frame.png";
 import Door from "./Door";
+import TemporaryDrawer from "./subs/Drawer";
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import Home from "@material-ui/icons/Home";
+
 
 
 export default function Profile() {
@@ -105,32 +107,7 @@ const getDoor=el=> setUser({...user, doorimage:el})
       .catch((err) => console.log(err));
   };
 
-  // delete users
-  const handleDelete = async (id) => {
-      //warning flag will be here
-
-    await axiosInst
-      .delete(`/delete/${id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
-        },
-      })
-      .then((res) => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("logged");
-        console.log(res.data);
-        setTimeout(()=>{
-          window.location.href = "/";
-        },300)
-        // setUsers({
-        //   loading: users.loading,
-        //   all: users.all.filter((user) => user._id !== id),
-        // });
-      })
-      .catch((err) => console.log(err.response.data.error));
-  };
-
+  
 console.log(typeof user.image)
   console.log("profile rendered");
   return (
@@ -144,10 +121,6 @@ console.log(typeof user.image)
                 src={(typeof user.image==="object")? URL.createObjectURL(user.image)
               :`http://localhost:4000/${user.image}`
               }
-                
-              //   {`http://localhost:4000/${(typeof user.image)==="object"?
-              //   URL.createObjectURL(user.image) : user.image 
-              // }`}
                 alt="profie_picture"
               />
             </>
@@ -156,7 +129,7 @@ console.log(typeof user.image)
           <p>
             {new Date(user.dofj)?.toLocaleDateString()} tarihinde katıldınız
           </p>
-          <button onClick={() => handleDelete(user._id)}>x</button>
+          
           {changing ? (
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
@@ -185,9 +158,10 @@ console.log(typeof user.image)
      
       <div className={styles.nav}>
       <PowerSettingsNewIcon onClick={handleLogout} className={styles.PowerSettingsNewIcon} />
-        <Home onClick={()=>window.location.href="/home"} className={styles.Home} />
-       
-       
+       <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", width:"6rem"}}>
+       <Home onClick={()=>window.location.href="/home"} className={styles.Home} />      
+       <TemporaryDrawer/>
+       </div>
       </div>
     </div>
   );

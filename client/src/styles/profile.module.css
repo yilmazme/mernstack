@@ -4,21 +4,21 @@
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  background-color: azure;
+  background-color: rgb(252, 252, 252);
+  overflow: hidden;
 }
 .userSection {
   position: relative;
   width: 20rem;
-  background-color: rgba(196, 227, 248, 0.267);
+  background-color: rgb(245, 247, 248);
   text-align: center;
-  padding: 3.2rem 1rem;
+  padding: 5rem 1rem;
 }
 .doorMain{
   width: calc(100vw - 20rem);
-  height: 100vh;
-  background-color: aquamarine;
+  height: calc(100vh -6rem);
   text-align: center;
-  padding: 0;
+  padding: 3rem 0;
 }
 
 .frame {
@@ -58,16 +58,15 @@ a:link {
 }
 
 .cameraPng {
-  width: 2rem !important;
-  height: 2rem !important;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
   background-color: inherit;
   color: aliceblue;
   border: none !important;
   position: absolute;
-  top: 2.2rem;
+  top: 5rem;
   right: 5px;
   cursor: pointer;
-  filter: sepia(67%) saturate(100);
 }
 
 .form {
