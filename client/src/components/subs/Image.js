@@ -16,7 +16,7 @@ function Image({ sendLikes, user }) {
 
         <div>
           <img
-            src={`http://localhost:4000/${user?.image}`}
+            src={`/${user?.image}`}
             alt="user"
             style={{
               width: "3rem",
@@ -31,7 +31,7 @@ function Image({ sendLikes, user }) {
         </div>
       </div>
       <div className={styles.imgDiv}>
-        <img src={`http://localhost:4000/${user.doorimage}`} alt="a big door" />
+        <img src={`/${user.doorimage}`} alt="a big door" />
       </div>
     </div>
   );
