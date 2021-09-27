@@ -4,6 +4,8 @@
 !.vscode/launch.json
 
 # Logs
+#
+requests.rest
 
 logs
 _.log

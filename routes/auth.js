@@ -117,8 +117,8 @@ auth.post("/google", async (req, response) => {
                 name: name,
                 email: email,
                 password: hashedPassword,
-                image:"uploads/user.png",
-                doorimage:"uploads/user.png"
+                image: "uploads/user.png",
+                doorimage: "uploads/defaultdoor.png",
               });
               //registration will continue with login
               newUser.save(async (err, data) => {
