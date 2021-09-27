@@ -18,7 +18,7 @@ export default function Profile() {
   let { id } = useParams();
   useEffect(() => {
     axiosInst({
-      url: `/user/${id}`,
+      url: `/api/user/${id}`,
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
