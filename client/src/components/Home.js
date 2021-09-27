@@ -117,7 +117,7 @@ function Home() {
               return (
                 <React.Fragment key={user._id}>
                   <img
-                    src={`http://localhost:4000/${user?.image}`}
+                    src={`/${user?.image}`}
                     alt="user"
                     style={{
                       width: "2rem",
@@ -168,7 +168,7 @@ function Home() {
               </div>
               <img
                 onClick={() => openPic(user._id)}
-                src={`http://localhost:4000/${user.doorimage}`}
+                src={`/${user.doorimage}`}
                 alt="userImage"
               />
               <div className={styles.cardInfoBottom}>

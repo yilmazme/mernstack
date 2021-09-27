@@ -123,7 +123,7 @@ export default function Profile() {
               src={
                 typeof user.image === "object"
                   ? URL.createObjectURL(user.image)
-                  : `http://localhost:4000/${user.image}`
+                  : `/${user.image}`
               }
               alt="profie_picture"
             />

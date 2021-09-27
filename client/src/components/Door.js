@@ -42,9 +42,7 @@ function Door({ door, sendDoor }) {
           <img
             className={styles.doorImg}
             src={
-              typeof door === "object"
-                ? URL.createObjectURL(door)
-                : `http://localhost:4000/${door}`
+              typeof door === "object" ? URL.createObjectURL(door) : `/${door}`
             }
             alt="profie_picture"
           />
