@@ -1,55 +1,53 @@
-.container{
-    position: absolute;
-    top: 2rem;
-    left: 10vw;
-    background-color: white;
-    text-align: center;
-    color: white;
-    z-index: 15;
-    width: 80vw;
-    height: auto;
-    margin: auto;
-    padding-bottom: 2rem;
+.container {
+  position: absolute;
+  top: 2rem;
+  left: 10vw;
+  background-color: white;
+  text-align: center;
+  color: white;
+  z-index: 15;
+  width: 80vw;
+  height: auto;
+  margin: auto;
+  padding-bottom: 2rem;
 }
 
-.imgDiv{
-    position: relative;
-    background-color: white;
-    text-align: center;
-    color: white;
-    width: 60%;
-    height: auto;
-    margin: auto;
-    padding: auto;
-   
+.imgDiv {
+  position: relative;
+  background-color: white;
+  text-align: center;
+  color: white;
+  width: 60%;
+  height: auto;
+  margin: auto;
+  padding: auto;
 }
 
-.imgInfo{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    position: sticky;
-    position: -webkit-sticky;
-    top:0;
-    z-index: 2;
-    padding: 0 1rem;
+.imgInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0 1rem;
 }
-.imgDiv img{
-    width: 80%;
-}
-
-.imgInfo button{
-    width: auto;
-    height: 2rem;
-    background-color: rgb(8, 78, 8);
+.imgDiv img {
+  width: 80%;
 }
 
-.FavoriteIcon{
-    color: red;
+.imgInfo button {
+  width: auto;
+  height: 2rem;
+  background-color: rgb(8, 78, 8);
 }
 
-.FavoriteIcon:hover{
-    color: palevioletred;
+.FavoriteIcon {
+  color: palevioletred;
 }
 
+.FavoriteIcon:hover {
+  color: red;
+}

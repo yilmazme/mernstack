@@ -6,14 +6,6 @@ function Image({ sendLikes, user }) {
   return (
     <div className={styles.container}>
       <div className={styles.imgInfo}>
-        <a
-          download
-          href={`http://localhost:4000/${user.doorimage}`}
-          title="ImageName"
-        >
-          <button>download</button>
-        </a>
-
         <span>
           <FavoriteIcon
             className={styles.FavoriteIcon}
