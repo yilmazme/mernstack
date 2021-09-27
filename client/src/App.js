@@ -35,7 +35,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post("/login", {
+      .post("/api/login", {
         email: user.email,
         password: user.password,
       })
