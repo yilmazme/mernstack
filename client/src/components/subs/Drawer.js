@@ -30,7 +30,7 @@ export default function TemporaryDrawer() {
     //warning flag will be here
 
     await axios
-      .delete(`/delete/${id}`, {
+      .delete(`/api/delete/${id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },

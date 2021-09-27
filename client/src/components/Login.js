@@ -18,7 +18,7 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
   };
   const responseSuccessGoogle = async (res) => {
     await axios
-      .post("/login/google", {
+      .post("/api/login/google", {
         tokenId: res.tokenId,
       })
       .then((response) => {

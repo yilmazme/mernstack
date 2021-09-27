@@ -20,7 +20,7 @@ function Signin({ passLogOrSign }) {
       return;
     }
     await axios
-      .post("/register", {
+      .post("/api/register", {
         name: user.name,
         email: user.email,
         password: user.password,

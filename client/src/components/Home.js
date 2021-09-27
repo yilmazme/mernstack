@@ -22,7 +22,7 @@ function Home() {
   let axiosInst = axios.create();
   useEffect(() => {
     axiosInst
-      .get("/users", {
+      .get("/api/users", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
@@ -41,7 +41,7 @@ function Home() {
       let reftoken = localStorage.getItem("refreshToken");
 
       let res = await axios({
-        url: "/login/refresh",
+        url: "/api/login/refresh",
         method: "POST",
         data: { token: reftoken },
       });
@@ -72,7 +72,7 @@ function Home() {
   //axios bu şekilde daha iyi çalıştı
   const handleLogout = () => {
     axiosInst({
-      url: "/logout",
+      url: "/api/logout",
       method: "POST",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -90,7 +90,7 @@ function Home() {
   //this is to increase likes by one
   const handleLikes = async (c) => {
     axios({
-      url: "/likes/" + c,
+      url: "/api/likes/" + c,
       method: "POST",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),

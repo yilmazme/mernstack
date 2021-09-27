@@ -38,7 +38,7 @@ export default function Profile() {
       let reftoken = localStorage.getItem("refreshToken");
 
       let res = await axios({
-        url: "/login/refresh",
+        url: "/api/login/refresh",
         method: "POST",
         data: { token: reftoken },
       });
@@ -69,7 +69,7 @@ export default function Profile() {
 
   const handleLogout = () => {
     axiosInst({
-      url: "/logout",
+      url: "/api/logout",
       method: "POST",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -92,7 +92,7 @@ export default function Profile() {
     const formData = new FormData();
     formData.append("myFile", user.image);
     axios
-      .post("/user/upload", formData, {
+      .post("/api/user/upload", formData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },

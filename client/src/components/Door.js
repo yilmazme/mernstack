@@ -15,7 +15,7 @@ function Door({ door, sendDoor }) {
     const formData = new FormData();
     formData.append("myFile", door);
     axios
-      .post("/user/uploaddoor", formData, {
+      .post("/api/user/uploaddoor", formData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
