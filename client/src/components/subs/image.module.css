@@ -1,5 +1,5 @@
 .container {
-  position: absolute;
+  position: fixed;
   top: 2rem;
   left: 10vw;
   background-color: white;
@@ -7,9 +7,10 @@
   color: white;
   z-index: 15;
   width: 80vw;
-  height: auto;
+  height: 100vh;
   margin: auto;
   padding-bottom: 2rem;
+  overflow-y: scroll;
 }
 
 .imgDiv {
@@ -36,6 +37,7 @@
 }
 .imgDiv img {
   width: 80%;
+  align-self: center;
 }
 
 .imgInfo button {

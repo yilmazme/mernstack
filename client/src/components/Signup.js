@@ -70,7 +70,7 @@ function Signin({ passLogOrSign }) {
         />
         <label htmlFor="password">Password:</label>
         <input
-          type="text"
+          type="password"
           name="passwordAgain"
           value={user.passwordAgain}
           onChange={(e) =>
