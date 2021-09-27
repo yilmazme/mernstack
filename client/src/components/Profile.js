@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect,useRef } from "react";
+import {useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/profile.module.css";
 import camera from "../themes/camera.png";
@@ -15,6 +15,7 @@ import Home from "@material-ui/icons/Home";
 export default function Profile() {
   const [user, setUser] = useState({});
   const [changing, setChanging] = useState(false);
+  const [fileText, setFileText] = useState("no file choosen");
 
   let { id } = useParams();
   useEffect(() => {
@@ -107,8 +108,14 @@ const getDoor=el=> setUser({...user, doorimage:el})
       .catch((err) => console.log(err));
   };
 
+  const btnRef = useRef();
+
+  const handleFileText=(c)=>{
+    setFileText(c)
+    btnRef.current.style.visibility = "visible"
+  }
   
-console.log(typeof user.image)
+console.log(user.image)
   console.log("profile rendered");
   return (
     <div className={styles.profileMain}>
@@ -132,16 +139,24 @@ console.log(typeof user.image)
           
           {changing ? (
             <form className={styles.form} onSubmit={handleSubmit}>
+              <label htmlFor="file">Choose</label>
+              <span className="text-danger">{fileText}</span>
               <input
+                className={styles.input}
                 type="file"
                 name="file"
+                id="file"
                 onChange={(e) =>
-                  setUser({ ...user, image: e.target.files[0] })
+                  {
+                    setUser({ ...user, image: e.target.files[0] });
+                    handleFileText(e.target.files[0].name)
+                  }
                 }
                 accept="image/*"
                 required
+                hidden
               />
-              <button type="submit">Upload</button>
+              <button style={{visibility:"hidden"}} ref={btnRef} type="submit">Upload</button>
             </form>
           ) : (
             <img

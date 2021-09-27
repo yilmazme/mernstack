@@ -19,3 +19,26 @@
     cursor: pointer;
 
   }
+
+  .form label{
+    width: 5rem;
+    background-color: indigo;
+    color: white;
+    padding:0.2rem 0.3rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  
+  }
+  
+  .form button {
+    width: 5rem;
+    background-color: rgb(15, 130, 0);
+    color: white;
+    padding:0.2rem 0.3rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }

@@ -76,11 +76,27 @@ a:link {
   position: relative;
   bottom: 280px;
 }
+.form label{
+  width: 50%;
+  background-color: indigo;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+
+}
+
 .form button {
-  background-color: green;
-  color: aliceblue;
-  width: 34%;
-  margin-top: 1.2rem;
+  width: 50%;
+  background-color: rgb(15, 130, 0);
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
 }
 .PowerSettingsNewIcon{
   color: rgb(255, 255, 255);
@@ -102,3 +118,4 @@ a:link {
   color: rgb(182, 174, 174);
   margin-top: 6px;
 }
+

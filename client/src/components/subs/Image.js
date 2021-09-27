@@ -2,26 +2,25 @@ import React from 'react'
 import styles from "./image.module.css";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Button } from '@material-ui/core';
-//import axios from 'axios';
+import axios from 'axios';
 
-function Image({ onClick, user }) {
+function Image({ sendLikes, user }) {
 
-    // const download=async()=>{
-    //     const response = await axios.post("/download", { responseType: 'blob', imageName: down });
-    //     return response;
-    // }
-
+ 
     return (
-        <div className={styles.container} onClick={onClick}>
-            {/* <button onClick={download}>down</button> */}
+        <div className={styles.container}>
+
             <div className={styles.imgInfo}>
-            <Button>Download</Button>
-       
-                    <span>
-                        <FavoriteIcon className={styles.FavoriteIcon} />
-                        <p style={{ color: "black" }}>{user?.doorlikes}</p>
-                    </span>
-            
+
+                <a download href={`http://localhost:4000/${user.doorimage}`} title="ImageName">
+                    <button>download</button>
+                </a>
+
+                <span>
+                    <FavoriteIcon className={styles.FavoriteIcon} onClick={()=>sendLikes(user._id)} />
+                    <p style={{ color: "black" }}>{user?.doorlikes}</p>
+                </span>
+
                 <div>
                     <img src={`http://localhost:4000/${user?.image}`}
                         alt="user"

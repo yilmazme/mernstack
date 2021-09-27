@@ -8,15 +8,16 @@ export default function Signin({ passLogOrSign }) {
     email: "",
     password: "",
     passwordAgain: "",
+    errorMessage:""
   });
-  const [errorMessage, setErrorMessage] = useState("");
+
 
   const loginModal = true;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.password !== user.passwordAgain) {
-      setErrorMessage("password shuld be same");
+      setUser({...user, errorMessage:"password shuld be same"});
       return;
     }
     await axios
@@ -31,7 +32,7 @@ export default function Signin({ passLogOrSign }) {
       })
       .catch((error) => {
         console.log(error.response.data);
-        setErrorMessage(error.response.data.error);
+        setUser({...user, errorMessage:error.response.data.error});
       });
   };
 
@@ -46,7 +47,7 @@ export default function Signin({ passLogOrSign }) {
           type="text"
           name="name"
           value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          onChange={(e) => setUser({ ...user, name: e.target.value, errorMessage:"" })}
           autoFocus
         />
         <label htmlFor="email">Email:</label>
@@ -54,25 +55,25 @@ export default function Signin({ passLogOrSign }) {
           type="text"
           name="email"
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => setUser({ ...user, email: e.target.value, errorMessage:"" })}
         />
         <label htmlFor="password">Password:</label>
         <input
-          type="text"
+          type="password"
           name="password"
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          onChange={(e) => setUser({ ...user, password: e.target.value, errorMessage:"" })}
         />
         <label htmlFor="password">Password:</label>
         <input
           type="text"
           name="passwordAgain"
           value={user.passwordAgain}
-          onChange={(e) => setUser({ ...user, passwordAgain: e.target.value })}
+          onChange={(e) => setUser({ ...user, passwordAgain: e.target.value, errorMessage:"" })}
         />
         <button type="submit">Sign</button>
         <span onClick={() => passLogOrSign(loginModal)}>{"<< Login"}</span>
-        <p className={styles.errorMessage}>{errorMessage}</p>
+        <p className={styles.errorMessage}>{user.errorMessage}</p>
       </form>
       <div className={styles.banner2}>
         <p>Or maybe not, i don't know</p>

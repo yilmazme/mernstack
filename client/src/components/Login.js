@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef,useEffect } from "react";
 import styles from "../styles/login.module.css";
 import axios from "axios";
 import GoogleLogin from "react-google-login";
 import googlePng from "../themes/google.png";
 
+
 //all props comeing from app (local login)
-function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
+function Login({ handleSubmit, user, setUser, passLogOrSign }) {
   //this is just for toggle login signup modal
   const loginModal = false;
   //
+
 
   // google login is handled in this comp
   const handleToken = (accessToken, refreshToken) => {
@@ -45,18 +47,19 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
+
           type="text"
           name="email"
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => setUser({ ...user, email: e.target.value, errorMessage:""})}
           autoFocus
         />
         <label htmlFor="password">Password:</label>
         <input
-          type="text"
+          type="password"
           name="password"
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          onChange={(e) => setUser({ ...user, password: e.target.value, errorMessage:""})}
         />
         <button type="submit">Login</button>
 
@@ -93,7 +96,7 @@ function Login({ handleSubmit, user, setUser, errorMessage, passLogOrSign }) {
         >
           {"Sign up >>"}
         </span>
-        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+        {user.errorMessage && <p className={styles.errorMessage}>{user.errorMessage}</p>}
       </form>
 
       <div className={styles.banner2}>

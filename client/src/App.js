@@ -18,8 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("logged"))
   );
-  const [user, setUser] = useState({ email: "", password: "" });
-  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState({ email: "", password: "",errorMessage:"" });
   const [logModal, setLogModal] = useState(true);
 
   //toggle between login and sign in form
@@ -49,7 +48,7 @@ function App() {
       })
       .catch((error) => {
         console.log(error.response.data);
-        setErrorMessage(error.response.data.error);
+        setUser({...user, errorMessage:error.response.data.error} );
       });
   };
 
@@ -66,7 +65,6 @@ function App() {
               <Login
                 handleSubmit={handleSubmit}
                 user={user}
-                errorMessage={errorMessage}
                 setUser={setUser}
                 passLogOrSign={getLogOrSign}
               />

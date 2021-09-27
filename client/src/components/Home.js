@@ -11,7 +11,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 function Home() {
-  const [users, setUsers] = useState({ loading: true, all: [] });
+  const [users, setUsers] = useState({ loading: true, all: [] , likes:0});
   const [loggedUser, setLoggedUser] = useState(null);
 
   const [backdrop, setBackdrop] = useState(false);
@@ -35,7 +35,7 @@ function Home() {
         }, 1000)
       )
       .catch((res) => console.log(res));
-  }, []);
+  }, [users.likes]);
 
   useEffect(() => {
     setLoggedUser(
@@ -99,6 +99,19 @@ function Home() {
       })
       .catch((err) => console.log("here we go:" + err));
   };
+//this is to increase likes by one
+const handleLikes= async(c)=>{
+  axios({
+    url:"/likes/"+c,
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("accessToken"),
+    },
+  })
+  .then(res=>setUsers({...users, likes:users.likes+1}))
+  .catch(err=>alert(err.response.data.error))
+}
+
 
   console.log("home rendered");
 
@@ -140,7 +153,7 @@ function Home() {
                <div className={styles.cardInfo}>
                 <p>By {user.name}</p>
                 <span style={{display:"flex",alignItems:"center"}}>
-                  <FavoriteIcon className={styles.FavoriteIcon} />
+                  <FavoriteIcon className={styles.FavoriteIcon} onClick={()=>handleLikes(user._id)}/>
                   <p style={{ margin:"2px"}}>{user?.doorlikes}</p>
                 </span>
               </div>
@@ -150,7 +163,7 @@ function Home() {
                 alt="userImage"
               />
               <div className={styles.cardInfoBottom}>
-                <button>Download</button>
+                Upload Date: {new Date(user.dofj)?.toLocaleDateString()}
               </div>
             </div>
           );
@@ -159,15 +172,9 @@ function Home() {
       {backdrop && <Backdrop onClick={() => setBackdrop(false)} />}
       {backdrop &&
         <Image user={users.all.filter(el => el._id === picId)[0]}
-        // likes={users.all.filter(el=>el._id === picId)
-        //   .map(ele=>ele.doorlikes)
-        //   } 
-        // source={users.all.filter(el=>el._id === picId)
-        // .map(ele=>`http://localhost:4000/${ele.doorimage}`)
-        // } 
+       
 
-
-        // onClick={()=>setBackdrop(false)}
+        sendLikes={(c)=>handleLikes(c)}
 
         />}
     </div>
