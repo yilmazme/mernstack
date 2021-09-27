@@ -3,12 +3,7 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./components/Login";
 import axios from "axios";
@@ -18,7 +13,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("logged"))
   );
-  const [user, setUser] = useState({ email: "", password: "",errorMessage:"" });
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    errorMessage: "",
+  });
   const [logModal, setLogModal] = useState(true);
 
   //toggle between login and sign in form
@@ -27,9 +26,10 @@ function App() {
   };
   //
 
-  const handleToken = (accessToken, refreshToken) => {
+  const handleToken = (accessToken, refreshToken, userId) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("userId", userId);
   };
 
   const handleSubmit = async (e) => {
@@ -40,7 +40,11 @@ function App() {
         password: user.password,
       })
       .then((response) => {
-        handleToken(response.data.accessToken, response.data.refreshToken);
+        handleToken(
+          response.data.accessToken,
+          response.data.refreshToken,
+          response.data.id
+        );
         localStorage.setItem("logged", JSON.stringify(true));
         setTimeout(() => {
           window.location.href = `/home`;
@@ -48,14 +52,12 @@ function App() {
       })
       .catch((error) => {
         console.log(error.response.data);
-        setUser({...user, errorMessage:error.response.data.error} );
+        setUser({ ...user, errorMessage: error.response.data.error });
       });
   };
 
   ////
 
-  console.log("app rendered");
-  console.log(isLoggedIn);
   return (
     <div className={styles.app}>
       <Router>
@@ -79,6 +81,7 @@ function App() {
           />
           <ProtectedRoute
             showRoute={isLoggedIn}
+            exact
             path="/user/:id"
             component={Profile}
           />

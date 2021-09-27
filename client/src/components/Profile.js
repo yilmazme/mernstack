@@ -1,5 +1,5 @@
-import React, { useState, useEffect,useRef } from "react";
-import {useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/profile.module.css";
 import camera from "../themes/camera.png";
@@ -7,10 +7,8 @@ import jwtDecode from "jwt-decode";
 import frame from "../themes/frame.png";
 import Door from "./Door";
 import TemporaryDrawer from "./subs/Drawer";
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import Home from "@material-ui/icons/Home";
-
-
 
 export default function Profile() {
   const [user, setUser] = useState({});
@@ -31,9 +29,8 @@ export default function Profile() {
       .catch((err) => console.log(err.response.data));
   }, []);
 
-//this is for getting door from child comp and store in state
-const getDoor=el=> setUser({...user, doorimage:el})
-
+  //this is for getting door from child comp and store in state
+  const getDoor = (el) => setUser({ ...user, doorimage: el });
 
   // refresh stuff
   async function refreshToken() {
@@ -82,10 +79,10 @@ const getDoor=el=> setUser({...user, doorimage:el})
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("logged");
-        console.log(res.data);
-        setTimeout(()=>{
+
+        setTimeout(() => {
           window.location.href = "/";
-        },300)
+        }, 300);
       })
       .catch((err) => console.log("here we go:" + err));
   };
@@ -110,33 +107,31 @@ const getDoor=el=> setUser({...user, doorimage:el})
 
   const btnRef = useRef();
 
-  const handleFileText=(c)=>{
-    setFileText(c)
-    btnRef.current.style.visibility = "visible"
-  }
-  
-console.log(user.image)
-  console.log("profile rendered");
+  const handleFileText = (c) => {
+    setFileText(c);
+    btnRef.current.style.visibility = "visible";
+  };
+
   return (
     <div className={styles.profileMain}>
       {user && (
         <div className={styles.userSection}>
-            <>
-              <img className={styles.frame} src={frame} alt="frame" />
-              <img
-                className={styles.profileImg}
-                src={(typeof user.image==="object")? URL.createObjectURL(user.image)
-              :`http://localhost:4000/${user.image}`
+          <>
+            <img className={styles.frame} src={frame} alt="frame" />
+            <img
+              className={styles.profileImg}
+              src={
+                typeof user.image === "object"
+                  ? URL.createObjectURL(user.image)
+                  : `http://localhost:4000/${user.image}`
               }
-                alt="profie_picture"
-              />
-            </>
+              alt="profie_picture"
+            />
+          </>
 
-          <h3>Merhaba {user.name?.split(" ")[0]}</h3>
-          <p>
-            {new Date(user.dofj)?.toLocaleDateString()} tarihinde katıldınız
-          </p>
-          
+          <h3>Hello, {user.name?.split(" ")[0]}</h3>
+          <p>Share the amazing door you think evreyone should see</p>
+
           {changing ? (
             <form className={styles.form} onSubmit={handleSubmit}>
               <label htmlFor="file">Choose</label>
@@ -146,37 +141,55 @@ console.log(user.image)
                 type="file"
                 name="file"
                 id="file"
-                onChange={(e) =>
-                  {
-                    setUser({ ...user, image: e.target.files[0] });
-                    handleFileText(e.target.files[0].name)
-                  }
-                }
+                onChange={(e) => {
+                  setUser({ ...user, image: e.target.files[0] });
+                  handleFileText(e.target.files[0].name);
+                }}
                 accept="image/*"
                 required
                 hidden
               />
-              <button style={{visibility:"hidden"}} ref={btnRef} type="submit">Upload</button>
+              <button
+                style={{ visibility: "hidden" }}
+                ref={btnRef}
+                type="submit"
+              >
+                Upload
+              </button>
             </form>
           ) : (
             <img
               className={styles.cameraPng}
               src={camera}
               onClick={() => setChanging((c) => !c)}
+              alt="cameraPng"
             />
           )}
         </div>
       )}
-      <div className={styles.doorMain}> 
-        <Door door={user?.doorimage} sendDoor={c => getDoor(c)}/>
+      <div className={styles.doorMain}>
+        <Door door={user?.doorimage} sendDoor={(c) => getDoor(c)} />
       </div>
-     
+
       <div className={styles.nav}>
-      <PowerSettingsNewIcon onClick={handleLogout} className={styles.PowerSettingsNewIcon} />
-       <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", width:"6rem"}}>
-       <Home onClick={()=>window.location.href="/home"} className={styles.Home} />      
-       <TemporaryDrawer/>
-       </div>
+        <PowerSettingsNewIcon
+          onClick={handleLogout}
+          className={styles.PowerSettingsNewIcon}
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "6rem",
+          }}
+        >
+          <Home
+            onClick={() => (window.location.href = "/home")}
+            className={styles.Home}
+          />
+          <TemporaryDrawer />
+        </div>
       </div>
     </div>
   );

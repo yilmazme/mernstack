@@ -14,7 +14,7 @@
   text-align: center;
   padding: 5rem 1rem;
 }
-.doorMain{
+.doorMain {
   width: calc(100vw - 20rem);
   height: calc(100vh -6rem);
   text-align: center;
@@ -48,7 +48,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.nav:hover{
+.nav:hover {
   background-color: rgba(0, 0, 0, 0.452);
 }
 a:link {
@@ -76,7 +76,7 @@ a:link {
   position: relative;
   bottom: 280px;
 }
-.form label{
+.form label {
   width: 50%;
   background-color: indigo;
   color: white;
@@ -85,7 +85,6 @@ a:link {
   border-radius: 0.3rem;
   cursor: pointer;
   margin-top: 1rem;
-
 }
 
 .form button {
@@ -98,24 +97,23 @@ a:link {
   cursor: pointer;
   margin-top: 1rem;
 }
-.PowerSettingsNewIcon{
+.PowerSettingsNewIcon {
   color: rgb(255, 255, 255);
   margin-top: 6px;
   cursor: pointer;
 }
 
-.PowerSettingsNewIcon:hover{
+.PowerSettingsNewIcon:hover {
   color: rgb(155, 0, 0);
   margin-top: 6px;
 }
-.Home{
+.Home {
   color: rgb(255, 255, 255);
   margin-top: 6px;
   cursor: pointer;
 }
 
-.Home:hover{
+.Home:hover {
   color: rgb(182, 174, 174);
   margin-top: 6px;
 }
-

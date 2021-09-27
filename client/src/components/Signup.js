@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import styles from "../styles/sign.module.css";
 import axios from "axios";
 
-export default function Signin({ passLogOrSign }) {
+function Signin({ passLogOrSign }) {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     passwordAgain: "",
-    errorMessage:""
+    errorMessage: "",
   });
-
 
   const loginModal = true;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.password !== user.passwordAgain) {
-      setUser({...user, errorMessage:"password shuld be same"});
+      setUser({ ...user, errorMessage: "password shuld be same" });
       return;
     }
     await axios
@@ -27,12 +26,11 @@ export default function Signin({ passLogOrSign }) {
         password: user.password,
       })
       .then((response) => {
-        console.log(response);
         window.location.href = "/";
       })
       .catch((error) => {
         console.log(error.response.data);
-        setUser({...user, errorMessage:error.response.data.error});
+        setUser({ ...user, errorMessage: error.response.data.error });
       });
   };
 
@@ -47,7 +45,9 @@ export default function Signin({ passLogOrSign }) {
           type="text"
           name="name"
           value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value, errorMessage:"" })}
+          onChange={(e) =>
+            setUser({ ...user, name: e.target.value, errorMessage: "" })
+          }
           autoFocus
         />
         <label htmlFor="email">Email:</label>
@@ -55,21 +55,31 @@ export default function Signin({ passLogOrSign }) {
           type="text"
           name="email"
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value, errorMessage:"" })}
+          onChange={(e) =>
+            setUser({ ...user, email: e.target.value, errorMessage: "" })
+          }
         />
         <label htmlFor="password">Password:</label>
         <input
           type="password"
           name="password"
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value, errorMessage:"" })}
+          onChange={(e) =>
+            setUser({ ...user, password: e.target.value, errorMessage: "" })
+          }
         />
         <label htmlFor="password">Password:</label>
         <input
           type="text"
           name="passwordAgain"
           value={user.passwordAgain}
-          onChange={(e) => setUser({ ...user, passwordAgain: e.target.value, errorMessage:"" })}
+          onChange={(e) =>
+            setUser({
+              ...user,
+              passwordAgain: e.target.value,
+              errorMessage: "",
+            })
+          }
         />
         <button type="submit">Sign</button>
         <span onClick={() => passLogOrSign(loginModal)}>{"<< Login"}</span>
@@ -81,3 +91,5 @@ export default function Signin({ passLogOrSign }) {
     </div>
   );
 }
+
+export default React.memo(Signin);

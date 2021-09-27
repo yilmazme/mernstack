@@ -1,0 +1,65 @@
+.mailMain {
+  position: fixed;
+  top: 3rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 400px;
+  min-height: 400px;
+  background-color: rgba(179, 245, 245, 0.288);
+  z-index: 400;
+  text-align: center;
+  border-radius: 1%;
+}
+.inputDiv {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.inputDiv input {
+  width: 70%;
+  border: none;
+  border-radius: 1%;
+  padding: 2px 1rem;
+}
+
+.btnsDiv {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.btnsDiv button {
+  width: fit-content;
+  background-color: indigo;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.submitBtn {
+  width: fit-content;
+  background-color: rgb(30, 130, 0) !important;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.Close {
+  position: relative;
+  top: 0;
+  left: 11rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.Close:hover {
+  color: red;
+}

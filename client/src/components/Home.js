@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import Spinner from "react-bootstrap/Spinner";
@@ -7,19 +6,18 @@ import { Link } from "react-router-dom";
 import styles from "../styles/home.module.css";
 import Backdrop from "./subs/Backdrop";
 import Image from "./subs/Image";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
 function Home() {
-  const [users, setUsers] = useState({ loading: true, all: [] , likes:0});
-  const [loggedUser, setLoggedUser] = useState(null);
+  const [users, setUsers] = useState({ loading: true, all: [], likes: 0 });
 
   const [backdrop, setBackdrop] = useState(false);
   const [picId, setPicId] = useState(null);
 
   function openPic(x) {
-    setBackdrop(true)
-    setPicId(x)
+    setBackdrop(true);
+    setPicId(x);
   }
   let axiosInst = axios.create();
   useEffect(() => {
@@ -36,15 +34,6 @@ function Home() {
       )
       .catch((res) => console.log(res));
   }, [users.likes]);
-
-  useEffect(() => {
-    setLoggedUser(
-      users.all.filter((user) => {
-        return user.token === localStorage.getItem("refreshToken");
-      })[0]
-    );
-  }, [users]);
-
 
   // refresh stuff
   async function refreshToken() {
@@ -93,46 +82,63 @@ function Home() {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("logged");
-        console.log(res);
 
         window.location.href = "/";
       })
       .catch((err) => console.log("here we go:" + err));
   };
-//this is to increase likes by one
-const handleLikes= async(c)=>{
-  axios({
-    url:"/likes/"+c,
-    method: "POST",
-    headers: {
-      Authorization: "Bearer " + localStorage.getItem("accessToken"),
-    },
-  })
-  .then(res=>setUsers({...users, likes:users.likes+1}))
-  .catch(err=>alert(err.response.data.error))
-}
-
-
-  console.log("home rendered");
+  //this is to increase likes by one
+  const handleLikes = async (c) => {
+    axios({
+      url: "/likes/" + c,
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res) => setUsers({ ...users, likes: users.likes + 1 }))
+      .catch((err) => alert(err.response.data.error));
+  };
 
   return (
     <div className={styles.homeMain}>
       <div className={styles.nav}>
-      
-      <PowerSettingsNewIcon onClick={handleLogout} className={styles.PowerSettingsNewIcon} />
-        <Link to={`/user/${loggedUser?._id}`} style={{ color: "black", backgroundColor: "unset" }}>
-          <img src={`http://localhost:4000/${loggedUser?.image}`}
-            alt="user"
-            style={{
-              width: "2rem", height: "2rem",
-              borderRadius: "50%", margin: "0 5px"
-            }} />
-          <span style={{color:"black", fontFamily:"cursive", fontSize:"14px"}}>
-          {loggedUser?.name}
-          </span>
-
+        <PowerSettingsNewIcon
+          onClick={handleLogout}
+          className={styles.PowerSettingsNewIcon}
+        />
+        <Link
+          to={`/user/${localStorage.getItem("userId")}`}
+          style={{ color: "black", backgroundColor: "unset" }}
+        >
+          {users.all
+            .filter((el) => el._id === localStorage.getItem("userId"))
+            .map((user) => {
+              return (
+                <React.Fragment key={user._id}>
+                  <img
+                    src={`http://localhost:4000/${user?.image}`}
+                    alt="user"
+                    style={{
+                      width: "2rem",
+                      height: "2rem",
+                      borderRadius: "50%",
+                      margin: "0 5px",
+                    }}
+                  />
+                  <span
+                    style={{
+                      color: "black",
+                      fontFamily: "cursive",
+                      fontSize: "14px",
+                    }}
+                  >
+                    {user?.name}
+                  </span>
+                </React.Fragment>
+              );
+            })}
         </Link>
-        
       </div>
 
       <div className={styles.cardContainer}>
@@ -150,11 +156,14 @@ const handleLikes= async(c)=>{
         {users.all.map((user) => {
           return (
             <div className={styles.userCard} key={user._id}>
-               <div className={styles.cardInfo}>
+              <div className={styles.cardInfo}>
                 <p>By {user.name}</p>
-                <span style={{display:"flex",alignItems:"center"}}>
-                  <FavoriteIcon className={styles.FavoriteIcon} onClick={()=>handleLikes(user._id)}/>
-                  <p style={{ margin:"2px"}}>{user?.doorlikes}</p>
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <FavoriteIcon
+                    className={styles.FavoriteIcon}
+                    onClick={() => handleLikes(user._id)}
+                  />
+                  <p style={{ margin: "2px" }}>{user?.doorlikes}</p>
                 </span>
               </div>
               <img
@@ -170,13 +179,12 @@ const handleLikes= async(c)=>{
         })}
       </div>
       {backdrop && <Backdrop onClick={() => setBackdrop(false)} />}
-      {backdrop &&
-        <Image user={users.all.filter(el => el._id === picId)[0]}
-       
-
-        sendLikes={(c)=>handleLikes(c)}
-
-        />}
+      {backdrop && (
+        <Image
+          user={users.all.filter((el) => el._id === picId)[0]}
+          sendLikes={(c) => handleLikes(c)}
+        />
+      )}
     </div>
   );
 }

@@ -1,9 +1,8 @@
-import React, { useRef,useEffect } from "react";
+import React from "react";
 import styles from "../styles/login.module.css";
 import axios from "axios";
 import GoogleLogin from "react-google-login";
 import googlePng from "../themes/google.png";
-
 
 //all props comeing from app (local login)
 function Login({ handleSubmit, user, setUser, passLogOrSign }) {
@@ -11,11 +10,11 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
   const loginModal = false;
   //
 
-
   // google login is handled in this comp
-  const handleToken = (accessToken, refreshToken) => {
+  const handleToken = (accessToken, refreshToken, userId) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("userId", userId);
   };
   const responseSuccessGoogle = async (res) => {
     await axios
@@ -23,7 +22,11 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
         tokenId: res.tokenId,
       })
       .then((response) => {
-        handleToken(response.data.accessToken, response.data.refreshToken);
+        handleToken(
+          response.data.accessToken,
+          response.data.refreshToken,
+          response.data.id
+        );
         localStorage.setItem("logged", JSON.stringify(true));
         setTimeout(() => {
           window.location.href = `/home`;
@@ -38,7 +41,6 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
     console.log(res);
   };
 
-  console.log("login rendered");
   return (
     <div className={styles.loginMain}>
       <div className={styles.banner1}>
@@ -47,11 +49,12 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
         <input
-
           type="text"
           name="email"
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value, errorMessage:""})}
+          onChange={(e) =>
+            setUser({ ...user, email: e.target.value, errorMessage: "" })
+          }
           autoFocus
         />
         <label htmlFor="password">Password:</label>
@@ -59,7 +62,9 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
           type="password"
           name="password"
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value, errorMessage:""})}
+          onChange={(e) =>
+            setUser({ ...user, password: e.target.value, errorMessage: "" })
+          }
         />
         <button type="submit">Login</button>
 
@@ -96,7 +101,9 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
         >
           {"Sign up >>"}
         </span>
-        {user.errorMessage && <p className={styles.errorMessage}>{user.errorMessage}</p>}
+        {user.errorMessage && (
+          <p className={styles.errorMessage}>{user.errorMessage}</p>
+        )}
       </form>
 
       <div className={styles.banner2}>
