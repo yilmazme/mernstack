@@ -22,15 +22,15 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    //in production for dev change this
-    origin: "https://mydoors.herokuapp.com/",
-    credentials: true,
-    methods: "GET,PUT,POST,OPTIONS",
-    allowedHeaders: "Content-Type,Authorization",
-  })
-);
+// app.use(
+//   cors({
+//     //in production for dev change this
+//     origin: "https://mydoors.herokuapp.com/",
+//     credentials: true,
+//     methods: "GET,PUT,POST,OPTIONS",
+//     allowedHeaders: "Content-Type,Authorization",
+//   })
+// );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
