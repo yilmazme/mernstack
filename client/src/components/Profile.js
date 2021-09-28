@@ -129,7 +129,7 @@ export default function Profile() {
                   ? URL.createObjectURL(user.image)
                   : PROXY
                   ? PROXY + user.image
-                  : user.image
+                  : `/${user.image}`
               }
               alt="profie_picture"
             />

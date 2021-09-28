@@ -49,7 +49,7 @@ function Door({ door, sendDoor }) {
                 ? URL.createObjectURL(door)
                 : PROXY
                 ? PROXY + door
-                : door
+                : `/${door}`
             }
             alt="profie_picture"
           />
