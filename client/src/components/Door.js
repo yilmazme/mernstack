@@ -45,7 +45,7 @@ function Door({ door, sendDoor }) {
           <img
             className={styles.doorImg}
             src={
-              typeof door === "object"
+              typeof door != "string"
                 ? URL.createObjectURL(door)
                 : PROXY
                 ? PROXY + door

@@ -11,7 +11,7 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import Home from "@material-ui/icons/Home";
 
 export default function Profile() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [changing, setChanging] = useState(false);
   const [fileText, setFileText] = useState("no file choosen");
 
@@ -115,7 +115,7 @@ export default function Profile() {
     btnRef.current.style.visibility = "visible";
   };
 
-  console.log(typeof user.image);
+  console.log(typeof user?.image);
   return (
     <div className={styles.profileMain}>
       {user && (
@@ -125,7 +125,7 @@ export default function Profile() {
             <img
               className={styles.profileImg}
               src={
-                typeof user.image === "object"
+                typeof user.image != "string"
                   ? URL.createObjectURL(user.image)
                   : PROXY
                   ? PROXY + user.image
