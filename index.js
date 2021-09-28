@@ -10,7 +10,7 @@ app.disable("x-powered-by");
 
 const origin = {
   dev: "http://localhost:3000",
-  prod: "https://mydoors.herokuapp.com/",
+  prod: "https://mydoors.herokuapp.com",
 };
 
 app.use(
