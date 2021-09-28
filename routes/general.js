@@ -91,8 +91,7 @@ general.post(
       if (req.file.path) {
         const doc = await UserSchema.findOneAndUpdate(
           { _id: id },
-          { image: req.file.path },
-          { new: true }
+          { image: req.file.path }
         );
         doc.token = null;
         await doc.save();
@@ -119,8 +118,7 @@ general.post(
       if (req.file.path) {
         const doc = await UserSchema.findOneAndUpdate(
           { _id: id },
-          { doorimage: req.file.path },
-          { new: true }
+          { doorimage: req.file.path }
         );
         doc.token = null;
         await doc.save();
