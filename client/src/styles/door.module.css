@@ -1,44 +1,55 @@
-.door{
-    margin: 0;
-    height: 100vh;
-    padding: 1rem 0;
+.door {
+  margin: 0;
+  height: 100vh;
+  padding: 1rem 0;
 }
-.doorImg{
-    height: 80vh !important;
-    border-radius: 1%;
+.doorImg {
+  height: 80vh !important;
+  border-radius: 1%;
 }
 .cameraPng {
-    width: 1.2rem !important;
-    height: 1.2rem !important;
-    background-color: inherit;
-    color: aliceblue;
-    border: none !important;
-    position: absolute;
-    top: 5rem;
-    right: 5px;
-    cursor: pointer;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  background-color: inherit;
+  color: aliceblue;
+  border: none !important;
+  position: absolute;
+  top: 5rem;
+  right: 3rem;
+  cursor: pointer;
+}
+.cameraPng:hover {
+  width: 1.6rem !important;
+  height: 1.6rem !important;
+}
 
-  }
+.form label {
+  width: 5rem;
+  background-color: indigo;
+  color: white;
+  padding: 0.2rem 0.3rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
 
-  .form label{
-    width: 5rem;
-    background-color: indigo;
-    color: white;
-    padding:0.2rem 0.3rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    margin-top: 1rem;
-  
-  }
-  
-  .form button {
-    width: 5rem;
-    background-color: rgb(15, 130, 0);
-    color: white;
-    padding:0.2rem 0.3rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
+.form button {
+  width: 5rem;
+  background-color: rgb(15, 130, 0);
+  color: white;
+  padding: 0.2rem 0.3rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.loading {
+  position: fixed;
+  left: 0;
+  top: 30%;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}

@@ -86,7 +86,9 @@ function App() {
             component={Profile}
           />
           <Route path="*">
-            NO SUCH PATH: <code>{window.location.href}</code>
+            <div style={{ width: "100vw", textAlign: "center" }}>
+              NO SUCH PATH: <code>{window.location.href}</code>
+            </div>
           </Route>
         </Switch>
       </Router>

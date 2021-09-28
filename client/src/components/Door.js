@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import styles from "../styles/door.module.css";
 import axios from "axios";
 import camera from "../themes/camera.png";
+import Spinner from "react-bootstrap/Spinner";
 
 function Door({ door, sendDoor }) {
   const [changing, setChanging] = useState(false);
   const [fileText, setFileText] = useState("no file choosen");
+  const [uploading, setUploading] = useState(false);
 
   let { id } = useParams();
 
@@ -14,6 +16,7 @@ function Door({ door, sendDoor }) {
   const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
 
   const handleSubmit = (e) => {
+    setUploading(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append("myFile", door);
@@ -25,10 +28,14 @@ function Door({ door, sendDoor }) {
       })
       .then((res) =>
         setTimeout(() => {
+          setUploading(false);
           window.location.href = `/user/${id}`;
-        }, 100)
+        }, 10)
       )
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setUploading(false);
+      });
   };
 
   const btnRef = useRef();
@@ -42,6 +49,17 @@ function Door({ door, sendDoor }) {
     <>
       {door && (
         <div className={styles.door}>
+          {uploading && (
+            <div className={styles.loading}>
+              <Spinner animation="grow" variant="primary" />
+              <Spinner animation="grow" variant="secondary" />
+              <Spinner animation="grow" variant="success" />
+              <Spinner animation="grow" variant="danger" />
+              <Spinner animation="grow" variant="warning" />
+              <Spinner animation="grow" variant="info" />
+              <Spinner animation="grow" variant="dark" />
+            </div>
+          )}
           <img
             className={styles.doorImg}
             src={
@@ -55,21 +73,6 @@ function Door({ door, sendDoor }) {
           />
 
           {changing ? (
-            // <form className={styles.form} onSubmit={handleSubmit}>
-            //   <input
-            //     type="file"
-            //     name="file"
-            //     onChange={
-            //         (e) =>
-            //             sendDoor(e.target.files[0])
-
-            //     }
-            //     accept="image/*"
-            //     required
-            //   />
-            //   <button type="submit">Upload</button>
-            // </form>
-
             <form className={styles.form} onSubmit={handleSubmit}>
               <label htmlFor="file">Choose</label>
               <span className="text-danger">{fileText}</span>

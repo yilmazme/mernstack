@@ -9,11 +9,13 @@ import Door from "./Door";
 import TemporaryDrawer from "./subs/Drawer";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import Home from "@material-ui/icons/Home";
+import Spinner from "react-bootstrap/Spinner";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [changing, setChanging] = useState(false);
   const [fileText, setFileText] = useState("no file choosen");
+  const [uploading, setUploading] = useState(false);
 
   //This is second proxy with one in package.json, this one for loadin uploads it should be empty for prod.
   const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
@@ -92,6 +94,7 @@ export default function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUploading(true);
     const formData = new FormData();
     formData.append("myFile", user.image);
     axios
@@ -100,12 +103,14 @@ export default function Profile() {
           Authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
       })
-      .then((res) =>
-        setTimeout(() => {
-          window.location.href = `/user/${id}`;
-        }, 100)
-      )
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setUploading(false);
+        window.location.href = `/user/${id}`;
+      })
+      .catch((err) => {
+        console.log(err);
+        setUploading(false);
+      });
   };
 
   const btnRef = useRef();
@@ -118,6 +123,17 @@ export default function Profile() {
   console.log(typeof user?.image);
   return (
     <div className={styles.profileMain}>
+      {uploading && (
+        <div className={styles.loading}>
+          <Spinner animation="grow" variant="primary" />
+          <Spinner animation="grow" variant="secondary" />
+          <Spinner animation="grow" variant="success" />
+          <Spinner animation="grow" variant="danger" />
+          <Spinner animation="grow" variant="warning" />
+          <Spinner animation="grow" variant="info" />
+          <Spinner animation="grow" variant="dark" />
+        </div>
+      )}
       {user && (
         <div className={styles.userSection}>
           <>
@@ -182,18 +198,18 @@ export default function Profile() {
           onClick={handleLogout}
           className={styles.PowerSettingsNewIcon}
         />
+        <Home
+          onClick={() => (window.location.href = "/home")}
+          className={styles.Home}
+        />
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "6rem",
+            width: "1.2rem",
           }}
         >
-          <Home
-            onClick={() => (window.location.href = "/home")}
-            className={styles.Home}
-          />
           <TemporaryDrawer />
         </div>
       </div>
