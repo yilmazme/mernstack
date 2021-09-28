@@ -4,12 +4,10 @@ const UserSchema = require("../schemas/User");
 const validateFunction = require("./validation");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
 
 //register
 
-register.post("/", upload.array("photos", 4), async (req, res) => {
+register.post("/", async (req, res) => {
   let { email, password } = req.body;
   //check validation
   let { error } = validateFunction(req.body);

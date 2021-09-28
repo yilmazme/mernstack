@@ -56,7 +56,7 @@ general.get("/api/user/:id", verify, async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads/");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     cb(
@@ -119,7 +119,7 @@ general.post(
       if (req.file.path) {
         const doc = await UserSchema.findOneAndUpdate(
           { _id: id },
-          { doorimage: req.file.path},
+          { doorimage: req.file.path },
           { new: true }
         );
         doc.token = null;
@@ -167,14 +167,14 @@ general.post("/api/logout", verify, async (req, res) => {
 
 //Increase likes by one
 
-general.post("/api/likes/:id",verify, async(req, res)=>{
-  let id = req.params.id
+general.post("/api/likes/:id", verify, async (req, res) => {
+  let id = req.params.id;
 
   try {
     if (id != req.user.id) {
       const doc = await UserSchema.findOneAndUpdate(
         { _id: id },
-        { $inc: {doorlikes: 1 } },
+        { $inc: { doorlikes: 1 } },
         { new: true }
       );
       doc.token = null;
@@ -185,21 +185,16 @@ general.post("/api/likes/:id",verify, async(req, res)=>{
       res.status(403).json({ error: "Let it be a fair game :)" });
     }
   } catch (error) {
-    res.json({error:"likes not updated"});
+    res.json({ error: "likes not updated" });
   }
-
-
-
-})
-
-
+});
 
 //download image
 // general.get("/api/download", (req, res, next) => {
 //   const image = path.join(__dirname, "/uploads", `/${req.body.imageName}`);
 //   res.download(image);
 // });
-general.get('/api/download/:filename', async (req, res) => {
+general.get("/api/download/:filename", async (req, res) => {
   try {
     // const photo = await Photo.findOne({
     //   photoID: req.params.photo_id,
@@ -212,12 +207,11 @@ general.get('/api/download/:filename', async (req, res) => {
     res.download(downloadPath);
   } catch (err) {
     console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Photo not found' });
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Photo not found" });
     }
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
-
 });
 
 module.exports = general;
