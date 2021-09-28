@@ -47,7 +47,9 @@ function Door({ door, sendDoor }) {
             src={
               typeof door === "object"
                 ? URL.createObjectURL(door)
-                : PROXY + door
+                : PROXY
+                ? PROXY + door
+                : door
             }
             alt="profie_picture"
           />

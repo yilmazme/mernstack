@@ -19,7 +19,7 @@ function Image({ sendLikes, user }) {
 
         <div>
           <img
-            src={PROXY + user?.image}
+            src={PROXY ? PROXY + user?.image : user.image}
             alt="user"
             style={{
               width: "3rem",

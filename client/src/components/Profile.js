@@ -115,6 +115,7 @@ export default function Profile() {
     btnRef.current.style.visibility = "visible";
   };
 
+  console.log(typeof user.image);
   return (
     <div className={styles.profileMain}>
       {user && (
@@ -126,7 +127,9 @@ export default function Profile() {
               src={
                 typeof user.image === "object"
                   ? URL.createObjectURL(user.image)
-                  : PROXY + user.image
+                  : PROXY
+                  ? PROXY + user.image
+                  : user.image
               }
               alt="profie_picture"
             />

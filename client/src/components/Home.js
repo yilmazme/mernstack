@@ -120,7 +120,7 @@ function Home() {
               return (
                 <React.Fragment key={user._id}>
                   <img
-                    src={PROXY + user?.image}
+                    src={PROXY ? PROXY + user?.image : user.image}
                     alt="user"
                     style={{
                       width: "2rem",
@@ -171,7 +171,7 @@ function Home() {
               </div>
               <img
                 onClick={() => openPic(user._id)}
-                src={PROXY + user.doorimage}
+                src={PROXY ? PROXY + user.doorimage : user.doorimage}
                 alt="userImage"
               />
               <div className={styles.cardInfoBottom}>
