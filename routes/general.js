@@ -46,7 +46,7 @@ general.get("/api/users", verify, (req, res) => {
 });
 
 //get profile
-general.get("/api/user/:id", verify, async (req, res) => {
+general.get("/api/user/:id", verify, (req, res) => {
   UserSchema.findById(req.user.id)
     .then((data) => res.json(data))
     .catch((err) => res.status(400).json({ error: err }));
