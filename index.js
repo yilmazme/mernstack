@@ -7,6 +7,21 @@ const cors = require("cors");
 const path = require("path");
 
 app.disable("x-powered-by");
+
+const origin = {
+  dev: "http://localhost:3000",
+  prod: "https://mydoors.herokuapp.com/",
+};
+
+app.use(
+  cors({
+    origin: process.env.NODE_ENV === "production" ? origin.prod : origin.dev,
+    credentials: true,
+    methods: "GET,PUT,POST,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
+
 app.use(
   cors({
     //in production for dev change this
@@ -30,11 +45,6 @@ mongoose.connection.on("connected", () => console.log("db connected"));
 
 app.use("/uploads", express.static("uploads"));
 app.use("/", general);
-
-// app.get("*", (req, res) => {
-//   res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

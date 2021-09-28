@@ -15,6 +15,9 @@ export default function Profile() {
   const [changing, setChanging] = useState(false);
   const [fileText, setFileText] = useState("no file choosen");
 
+  //This is second proxy with one in package.json, this one for loadin uploads it should be empty for prod.
+  const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
+
   let { id } = useParams();
   useEffect(() => {
     axiosInst({
@@ -123,7 +126,7 @@ export default function Profile() {
               src={
                 typeof user.image === "object"
                   ? URL.createObjectURL(user.image)
-                  : `/${user.image}`
+                  : PROXY + user.image
               }
               alt="profie_picture"
             />
