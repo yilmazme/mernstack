@@ -43,14 +43,13 @@ mongoose.connect(DATABASE_URI, {
 
 mongoose.connection.on("connected", () => console.log("db connected"));
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
 app.use("/", general);
 
 
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-  app.use("/uploads", express.static("uploads"));
 
   app.get("*", (req, res) => {
     res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
