@@ -17,8 +17,7 @@ export default function Profile() {
   const [fileText, setFileText] = useState("no file choosen");
   const [uploading, setUploading] = useState(false);
 
-  //This is second proxy with one in package.json, this one for loadin uploads it should be empty for prod.
-  const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
+
 
   let { id } = useParams();
   useEffect(() => {
@@ -120,7 +119,6 @@ export default function Profile() {
     btnRef.current.style.visibility = "visible";
   };
 
-  console.log(typeof user?.image);
   return (
     <div className={styles.profileMain}>
       {uploading && (
@@ -143,8 +141,6 @@ export default function Profile() {
               src={
                 typeof user.image != "string"
                   ? URL.createObjectURL(user.image)
-                  : PROXY
-                  ? PROXY + user.image
                   : `/${user.image}`
               }
               alt="profie_picture"

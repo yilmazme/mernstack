@@ -15,8 +15,6 @@ function Home() {
   const [backdrop, setBackdrop] = useState(false);
   const [picId, setPicId] = useState(null);
 
-  //This is second proxy with one in package.json, this one for loadin uploads it should be empty for prod.
-  const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
 
   function openPic(x) {
     setBackdrop(true);
@@ -120,7 +118,7 @@ function Home() {
               return (
                 <React.Fragment key={user._id}>
                   <img
-                    src={PROXY ? PROXY + user?.image : user.image}
+                    src={user.image}
                     alt="user"
                     style={{
                       width: "2rem",
@@ -171,7 +169,7 @@ function Home() {
               </div>
               <img
                 onClick={() => openPic(user._id)}
-                src={PROXY ? PROXY + user.doorimage : user.doorimage}
+                src={user?.doorimage}
                 alt="userImage"
               />
               <div className={styles.cardInfoBottom}>

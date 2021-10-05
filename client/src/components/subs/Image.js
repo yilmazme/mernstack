@@ -3,8 +3,7 @@ import styles from "./image.module.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 function Image({ sendLikes, user }) {
-  //This is second proxy with one in package.json, this one for loadin uploads it should be empty for prod.
-  const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
+ 
 
   return (
     <div className={styles.container}>
@@ -19,7 +18,7 @@ function Image({ sendLikes, user }) {
 
         <div>
           <img
-            src={PROXY ? PROXY + user?.image : user.image}
+            src={user?.image}
             alt="user"
             style={{
               width: "3rem",
