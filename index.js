@@ -43,7 +43,7 @@ mongoose.connect(DATABASE_URI, {
 
 mongoose.connection.on("connected", () => console.log("db connected"));
 
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/", general);
 
 
