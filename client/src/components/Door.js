@@ -12,9 +12,6 @@ function Door({ door, sendDoor }) {
 
   let { id } = useParams();
 
-  //This is second proxy with one in package.json, this one for loadin uploads it should be empty for prod.
-  const PROXY = process.env.REACT_APP_UPLOADS_PROXY;
-
   const handleSubmit = (e) => {
     setUploading(true);
     e.preventDefault();
@@ -65,8 +62,6 @@ function Door({ door, sendDoor }) {
             src={
               typeof door != "string"
                 ? URL.createObjectURL(door)
-                : PROXY
-                ? PROXY + door
                 : `/${door}`
             }
             alt="profie_picture"

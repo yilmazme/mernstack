@@ -91,10 +91,10 @@ general.post(
       if (req.file.path) {
         const doc = await UserSchema.findOneAndUpdate(
           { _id: id },
-          { image: req.file.path },
-          { new: true }
+          { image: req.file.path }
+     
         );
-        doc.token = null;
+ 
         await doc.save();
         res.status(200).json("your picture updated");
       } else {
@@ -120,9 +120,9 @@ general.post(
         const doc = await UserSchema.findOneAndUpdate(
           { _id: id },
           { doorimage: req.file.path },
-          { new: true }
+    
         );
-        doc.token = null;
+
         await doc.save();
         res.status(200).json("your door picture updated");
       } else {
@@ -131,7 +131,6 @@ general.post(
     } catch (error) {
       res.json(error);
     }
-    console.log(req.body);
     console.log(req.file.path);
   }
 );
@@ -194,24 +193,24 @@ general.post("/api/likes/:id", verify, async (req, res) => {
 //   const image = path.join(__dirname, "/uploads", `/${req.body.imageName}`);
 //   res.download(image);
 // });
-general.get("/api/download/:filename", async (req, res) => {
-  try {
-    // const photo = await Photo.findOne({
-    //   photoID: req.params.photo_id,
-    // });
-    // if (!photo) {
-    //   return res.status(404).json({ msg: 'Photo not found' });
-    // }
-    const filename = req.params.filename;
-    const downloadPath = path.join(__dirname, `${filename}`);
-    res.download(downloadPath);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind === "ObjectId") {
-      return res.status(404).json({ msg: "Photo not found" });
-    }
-    res.status(500).send("Server error");
-  }
-});
+// general.get("/api/download/:filename", async (req, res) => {
+//   try {
+//     // const photo = await Photo.findOne({
+//     //   photoID: req.params.photo_id,
+//     // });
+//     // if (!photo) {
+//     //   return res.status(404).json({ msg: 'Photo not found' });
+//     // }
+//     const filename = req.params.filename;
+//     const downloadPath = path.join(__dirname, `${filename}`);
+//     res.download(downloadPath);
+//   } catch (err) {
+//     console.error(err.message);
+//     if (err.kind === "ObjectId") {
+//       return res.status(404).json({ msg: "Photo not found" });
+//     }
+//     res.status(500).send("Server error");
+//   }
+// });
 
 module.exports = general;

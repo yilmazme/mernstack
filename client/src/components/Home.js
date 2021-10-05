@@ -5,7 +5,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import styles from "../styles/home.module.css";
 import Backdrop from "./subs/Backdrop";
-import Image from "./subs/Image";
+import FullImage from "./subs/FullImage";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
@@ -181,7 +181,7 @@ function Home() {
       </div>
       {backdrop && <Backdrop onClick={() => setBackdrop(false)} />}
       {backdrop && (
-        <Image
+        <FullImage
           user={users.all.filter((el) => el._id === picId)[0]}
           sendLikes={(c) => handleLikes(c)}
         />

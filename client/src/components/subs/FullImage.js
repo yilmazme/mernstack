@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./image.module.css";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
-function Image({ sendLikes, user }) {
+function FullImage({ sendLikes, user }) {
  
 
   return (
@@ -39,4 +39,4 @@ function Image({ sendLikes, user }) {
   );
 }
 
-export default Image;
+export default FullImage;
