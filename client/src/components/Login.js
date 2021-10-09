@@ -56,6 +56,7 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
             setUser({ ...user, email: e.target.value, errorMessage: "" })
           }
           autoFocus
+          required
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -65,6 +66,7 @@ function Login({ handleSubmit, user, setUser, passLogOrSign }) {
           onChange={(e) =>
             setUser({ ...user, password: e.target.value, errorMessage: "" })
           }
+          required
         />
         <button type="submit">Login</button>
 
